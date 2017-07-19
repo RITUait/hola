@@ -1,4 +1,5 @@
 class Contact < ApplicationRecord
+
   acts_as_taggable_on :tags
   
   require 'csv'

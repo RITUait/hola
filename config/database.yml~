@@ -24,6 +24,7 @@ default: &default
 development:
   <<: *default
   database: hola_development
+ 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
   # When left blank, postgres will use the default role. This is
@@ -31,7 +32,7 @@ development:
   username: hola
 
   # The password associated with the postgres role (username).
-  password:	hola123
+  password: josh123
 
   # Connect on a TCP socket. Omitted by default since the client uses a
   # domain socket that doesn't need configuration. Windows does not have
