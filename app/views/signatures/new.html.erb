@@ -1,0 +1,9 @@
+<%= bootstrap_form_for @signature do |f| %>
+	<%= f.text_field :name %>
+	<%= f.text_field :email %>
+  <%= f.text_field :smtp_mail_server %>
+  <%= f.text_field :port %>
+  <%= f.text_field :password %>
+  <%= f.text_field :user_name %>
+	<%= f.submit "save" %>
+<% end %>
