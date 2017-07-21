@@ -1,0 +1,30 @@
+
+<table class="table table-bordered">
+  
+    
+      <th>Id</th>
+      <th>Name</th>
+      <th>email</th>
+      <th>company</th>
+      <th>Tags</th>
+  
+  <tbody>
+    <% @contacts.each do |contact| %>
+      <tr>
+        <td><%= contact.id %></td>
+        <td><%= contact.name %></td>
+        <td><%= contact.email %></td>
+        <td><%= contact.company %></td>
+        <p>
+        <td><%= link_to contact.tag_list  %></td></p>
+      </tr>
+    <% end %>
+    
+  </tbody>
+</table>
+<div>
+  <%= form_tag import_contacts_path, multipart: true do %>
+    <%= file_field_tag :file %>
+    <%= submit_tag "Import CSV" %>
+  <% end %>
+</div>
