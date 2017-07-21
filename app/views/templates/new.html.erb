@@ -1,2 +1,9 @@
 <%= "new template" %>
-<%= render 'form' %>
+<div class="container">
+<%= bootstrap_form_for @template do |f| %>
+  <%= f.text_area :category, as: :text ,placeholder: "Enter the personal message..."%>
+  <%= f.text_area :description , as: :text %>
+  <%= f.submit "Save" %>
+<%end%>
+<%= link_to "Add Signature" ,new_signature_path, class: "bt btn-success" %>
+</div>

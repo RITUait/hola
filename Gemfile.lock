@@ -52,6 +52,7 @@ GEM
       sass (>= 3.3.4)
     bootstrap_form (2.7.0)
     builder (3.2.3)
+    byebug (9.0.6)
     capybara (2.14.4)
       addressable
       mime-types (>= 1.16)
@@ -208,6 +209,7 @@ DEPENDENCIES
   acts-as-taggable-on
   bootstrap-sass
   bootstrap_form
+  byebug
   capybara (~> 2.13)
   coffee-rails (~> 4.2)
   devise
