@@ -1,0 +1,21 @@
+<%= "new template" %>
+<div class="container">
+  <%= form_for :email, url: send_email_path do |f| %>
+    <div class="contents"> 
+      <div class="row">
+        <div class="col-md-6">
+          <%= text_area_tag "context[]", '', class: "form-control", placeholder: "Enter the description..." %>
+          <%= link_to 'Save as template', "javascript:void(0)", class: 'save_as_template pull-right' %> 
+        </div>  
+        <div class="col-md-4">
+          <%= select_tag :template,options_for_select(@templates.collect{|u| [u.title,u.id]}) , class:"form-select templates" %>
+        </div>  
+      </div>
+    </div>
+    <%= f.submit "Save" %>
+  <%end%>
+  <%= link_to "Add Signature" ,new_signature_path, class: "btn btn-success" %>
+  <%= render 'form'%>
+  <button type="button" class="btn btn-success" id="add_textarea" >+</button>
+</div>
+

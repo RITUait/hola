@@ -77,7 +77,7 @@ ActiveRecord::Schema.define(version: 20170719025358) do
   end
 
   create_table "templates", force: :cascade do |t|
-    t.string   "category"
+    t.string   "title"
     t.string   "description"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false

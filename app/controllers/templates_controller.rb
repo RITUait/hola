@@ -11,7 +11,7 @@ end
 def create
  @template = Template.new(template_params)
  if @template.save
-   redirect_to new_template_path
+   redirect_to root_path
  else 
    render :new
 end
@@ -41,6 +41,6 @@ end
 
 private
 def template_params
- params.require(:template).permit(:category, :description)
+ params.require(:template).permit(:title, :description)
 end
 end

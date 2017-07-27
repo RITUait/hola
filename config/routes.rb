@@ -6,13 +6,15 @@ Rails.application.routes.draw do
 
   resources :contacts
   resources :templates
-  root to: "templates#new"
+  root to: "home#index"
 
   resources :signatures
   resources :contacts do
     collection { post :import }
   end
+
   get 'tags/:tag', to: 'contacts#index', as: :tag
+  post 'send_email', to: "home#send_email", as: :send_email
 
   if Rails.env.development?
    mount LetterOpenerWeb::Engine, at: "/letter_opener"
