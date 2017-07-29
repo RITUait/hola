@@ -1,9 +1,14 @@
-<%= "new template" %>
-<div class="container">
-<%= bootstrap_form_for @template do |f| %>
-  <%= f.text_area :category, as: :text ,placeholder: "Enter the personal message..."%>
-  <%= f.text_area :description , as: :text %>
-  <%= f.submit "Save" %>
-<%end%>
-<%= link_to "Add Signature" ,new_signature_path, class: "bt btn-success" %>
+<div class="col-sm-8">
+<%= form_for @template do |f| %>
+	<%= f.text_area :description %><br><br>
+	<%= f.select :category, @signatures.pluck(:name) %> <br><br>           
+  <%= f.submit "send" %>
+<% end %>
+</div>           
+
+<div class="col-sm-4">
+	<%= @contact.name  %>
+	<%= @contact.email %>
+	<%= @contact.company %>
 </div>
+  

@@ -7,16 +7,13 @@ class SignaturesController < ApplicationController
   end
   def create
     @signature = Signature.new(signature_params)
-    @contact = Contact.first
-    @template = Template.first
-     if @signature.save
-        SignatureMailer.test_email(@contact.id, @signature.id,@template.id).deliver_now
+    if @signature.save
         redirect_to signatures_path
-      else
+    else
         render :new
-      end
     end
-    def update
+  end
+  def update
     @signature = Signature.find(params[:id])
     if @signature.update_attributes(signature_params)
       redirect_to signatures_path
@@ -24,8 +21,12 @@ class SignaturesController < ApplicationController
       render :new
     end 
   end
+  def preview
+    SignatureMailer.test_email(@contact.id, @signature.id)
+  end
+  
     def signature_params
-      params.require(:signature).permit(:name,:email,:address,:password,:port,:user_name,:smtp_mail_server)
+      params.require(:signature).permit(:name,:email,:address,:password,:port,:user_name,:smtp_mail_server,:domain)
     end
- 
+     
 end

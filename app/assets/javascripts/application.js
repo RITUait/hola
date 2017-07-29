@@ -17,7 +17,7 @@
 //= require turbolinks
 //= require jquery_nested_form
 //= require_tree .
-
+//= require jquery.easy-pie-chart
 
 
 

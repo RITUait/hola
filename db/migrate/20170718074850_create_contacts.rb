@@ -4,6 +4,7 @@ class CreateContacts < ActiveRecord::Migration[5.0]
       t.string 'name'
       t.string 'email'
       t.string 'company'
+      t.boolean 'status', default: false
        t.timestamps
     end
   end

@@ -7,6 +7,7 @@
       <th>email</th>
       <th>company</th>
       <th>Tags</th>
+      <th>Status</th>
   
   <tbody>
     <% @contacts.each do |contact| %>
@@ -17,6 +18,7 @@
         <td><%= contact.company %></td>
         <p>
         <td><%= link_to contact.tag_list  %></td></p>
+        <td><%= contact.status %></td>
       </tr>
     <% end %>
     

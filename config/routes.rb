@@ -6,7 +6,8 @@ Rails.application.routes.draw do
 
   resources :contacts
   resources :templates
-  root to: "templates#new"
+  resources :dashboard
+  root to: "dashboard#index"
 
   resources :signatures
   resources :contacts do

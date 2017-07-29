@@ -7,6 +7,7 @@ class CreateSignatures < ActiveRecord::Migration[5.0]
       t.string 'port'
       t.string 'user_name'
       t.string 'password'
+      t.string 'domain'
       t.timestamps
     end
   end

@@ -2,6 +2,7 @@
 class SignatureMailerPreview < ActionMailer::Preview
 	def test_email
 	@contact = Contact.first
-	SignatureMailer.test_email(@contact.id)
+	@signature = Signature.first
+	SignatureMailer.test_email(@contact.id, @signature.id)
 	end
 end

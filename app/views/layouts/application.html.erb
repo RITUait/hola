@@ -10,9 +10,12 @@
 
   <body>
     <nav class="navbar navbar-default">
-      <div class="navbar-header">
+      <div class="boingInUp">
           <ul class="navbar-brand"> Hola</ul>
        </div>
+        <ul class="nav navbar-nav navbar-right">
+       <li><%= link_to "signature", new_signature_path %><li>
+        </ul>
     </nav>
     <div class="container">
       <%= yield %>
