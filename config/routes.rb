@@ -15,9 +15,10 @@ Rails.application.routes.draw do
 
   get 'tags/:tag', to: 'contacts#index', as: :tag
   post 'send_email', to: "home#send_email", as: :send_email
+  get '/templates/:id', to: 'home#index', constraints: { id: '#{selectedid}' }
 
   if Rails.env.development?
-   mount LetterOpenerWeb::Engine, at: "/letter_opener"
-end
+    mount LetterOpenerWeb::Engine, at: "/letter_opener"
+  end
 
 end

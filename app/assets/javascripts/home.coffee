@@ -4,9 +4,11 @@
 
 
 jQuery ->
+  index = 0
   $("#add_textarea").click ->
+     index = index + 1
      t = $(".row:first").html()
-     $(".contents").append("<div class='row'>" + t + "</div>")
+     $(".contents").append("<div class='row' id='#{index}'>" + t + "</div>")
      return
 
   $(document).on "click", ".save_as_template", ->
@@ -14,13 +16,33 @@ jQuery ->
     #console.log("yeee", v)
     #$('.templates').append("<option value=" + v + ">" + v + "</option>")
     #return
-    #content = $(this).parent().find("textarea".val())
+    content = $(this).parent().find("textarea").val()
+    console.log("#{content}")
+    $("#myModal").val(content)
+    console.log("#{content}")
     $("#myModal").modal()
-    return content
+    return 
 
   $("#modal_submit").click  ->
     heading = $("#Heading").val()
-    $.post("/templates",{template:{title:"#{heading}",description:"sir"}})
+    ans = $("#myModal").val()
+    $.ajax({
+      url: "/templates",
+      data: {template: {title:"#{heading}",description:"#{ans}"} },
+      type: "post",
+      dataType: "script"
+    })
+    #$.post("/templates",{template:{title:"#{heading}",description:"#{ans}"}})
+    return
+
+  $("#template").change ->
+    selectedid = $(this).find("option:selected").val()
+    $.ajax({
+      url: "/templates/"+selectedid
+      type: "get"
+      dataType: "script"
+    })
+    #$(this).parent().parent().find("textarea").val(@template.description)
     return
 return
 

@@ -4,11 +4,11 @@
     <div class="contents"> 
       <div class="row">
         <div class="col-md-6">
-          <%= text_area_tag "context[]", '', class: "form-control", placeholder: "Enter the description..." %>
+          <%= text_area_tag "context[]", '', class: "form-control description", placeholder: "Enter the description..." %>
           <%= link_to 'Save as template', "javascript:void(0)", class: 'save_as_template pull-right' %> 
         </div>  
-        <div class="col-md-4">
-          <%= select_tag :template,options_for_select(@templates.collect{|u| [u.title,u.id]}) , class:"form-select templates" %>
+        <div class="col-md-4 templates-dropdown">
+          <%= render 'templates/select_templates' %>
         </div>  
       </div>
     </div>
@@ -19,3 +19,6 @@
   <button type="button" class="btn btn-success" id="add_textarea" >+</button>
 </div>
 
+<%= javascript_tag do %>
+  window.templates = "<%= @templates.to_json %>";
+<% end %>
