@@ -1,0 +1,43 @@
+<div class="well">
+	<table class="table">
+		<tr>
+		  <th>Name</th>
+		  <th>email</th>
+  	  <th>company</th>
+		</tr>
+ 		<td><%= @contact.name  %></td>
+		<td><%= @contact.email %></td>
+		<td><%= @contact.company %></td>
+	</table>
+</div>
+<div class="card card-stats">
+	<div class="card-content" >
+		<div class="container">
+  		<%= bootstrap_form_for :email, url: send_email_path do |f| %>
+    		<div class="contents"> 
+      		<div class="row">
+      			
+  					<div class="col-md-8">
+          		<%= text_area_tag "context[]", '', class: "form-control", placeholder: "Enter the description..." %>
+          		<%= link_to 'Save as template', "javascript:void(0)", class: 'save_as_template pull-right' %>
+          		<button type="button" class="btn btn-success" id="add_textarea" >+</button>
+          	</div> 
+          	<div class="col-md-2">
+          		<%= select_tag :template,options_for_select(@templates.collect{|u| [u.title,u.id]}) , class:"form-select templates" %>
+        		</div> 
+          	<div  class="col-md-8" >
+          		
+          	</div>
+        		  
+				 </div>
+			  </div>
+			  <div class="col-md-8">
+			  	<%= f.select :signature, @signatures.pluck(:name) %> <br><br>
+			  	<%= f.submit "send" %>
+			  </div> 
+		  <%end%>
+	  </div>
+	</div>
+</div> 
+
+

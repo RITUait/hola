@@ -10,5 +10,12 @@ class Contact < ApplicationRecord
       Contact.create!(:name => row["name"], :email => row["email"], :company => row["company"], :tag_list => [row["tag_list"]])
 		end
   end 
+	
+	def next
+    self.class.where("id > ?", id).first
+  end
 
+  def previous
+    self.class.where("id < ?", id).last
+  end
 end

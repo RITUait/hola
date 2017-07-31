@@ -1,0 +1,124 @@
+<div class="background">
+	<% @contacts.tag_counts.each do |t| %>
+  	<% contacts = Contact.tagged_with(t.name)%>
+    <% @c << {"tag" => t.name, "notsent" => contacts.where(status: false).count, "sent" => contacts.where(status: true).count, "total" => contacts.count } %>
+  <% end %>
+
+	<% @c.each do |f| %>
+		<div class="col-sm-6">
+			<div class="row">
+				<div class="content" >
+					<div class="container-fluid">
+						<div class="card card-stats">
+							<div class="card-header" card-chart" data-background-color="blue">
+								<%= f["tag"] %>
+							</div>
+							<div class="card-footer" align="right">
+								<p> email Sent </p>
+								<p class=" rcorners1" class="title" align="center" ><%= f["sent"] %>/<%= f["total"] %></p>
+							</div>
+							<div class="card-footer" align="right">
+								<div class="stats">
+									<%= link_to "Send email", root_path(flag: f["tag"]), method: :get, class: "btn btn-primary" %>
+								</div>
+							</div>
+						</div>
+					</div>
+			 	</div>
+			</div>
+		</div>
+	<% end %>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

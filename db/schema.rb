@@ -81,6 +81,7 @@ ActiveRecord::Schema.define(version: 20170719025358) do
   create_table "templates", force: :cascade do |t|
     t.text     "contact_ids", default: [],              array: true
     t.string   "category"
+    t.string   "title"
     t.string   "description"
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false

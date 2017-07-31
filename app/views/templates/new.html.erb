@@ -7,8 +7,10 @@
 </div>           
 
 <div class="col-sm-4">
-	<%= @contact.name  %>
-	<%= @contact.email %>
-	<%= @contact.company %>
+<% @contact.each do |contact| %>
+	<%=contact.name  %>
+	<%= contact.email %>
+	<%= contact.company %>
+<% end %>
 </div>
   

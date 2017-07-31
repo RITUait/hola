@@ -6,13 +6,13 @@ class TemplatesController < ApplicationController
   def new
     @template =  Template.new
     @signatures = Signature.all
-    
-    p  @contact = Contact.where(status: false).first
+   	@contact = Contact.where(status: false)
+
   end
 
   def create
     @template = Template.new(template_params)
-    @contact = Contact.where(status: false).first
+    @contact = Contact.tagged_with(params[:flag]).where(status: true).first
     @signature = Signature.find_by(name: @template.category)
     if @template.save
       @contact.update(status: true)
@@ -45,6 +45,6 @@ class TemplatesController < ApplicationController
 
   private
   def template_params
-    params.require(:template).permit(:category, :description)
+    params.require(:template).permit(:title,:category, :description)
   end
 end
