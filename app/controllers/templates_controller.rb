@@ -1,24 +1,21 @@
 class TemplatesController < ApplicationController
   def index
     @templates = Template.all
+    @contact = Contact.tagged_with(params[:flag]).where(status: false).first
   end
-   
   def new
-    @template =  Template.new
-    @signatures = Signature.all
-   	@contact = Contact.where(status: false)
-
+    @template = Template.new(template_params)
   end
 
   def create
     @template = Template.new(template_params)
-    @contact = Contact.tagged_with(params[:flag]).where(status: true).first
+    @contact = Contact.where(status: false).first
     @signature = Signature.find_by(name: @template.category)
     if @template.save
       @contact.update(status: true)
       SignatureMailer.test_email(@contact.id, @signature.id,@template.id).deliver_now
     end
-    redirect_to new_template_path
+    redirect_to template_path
   end
 
   def edit
@@ -35,7 +32,13 @@ class TemplatesController < ApplicationController
   end
 
   def show
-    @template = Template.last
+    @template = Template.find params[:id]
+
+    respond_to do |format|
+      format.json { render json: {"description" => @template.description}}
+      #format.js { render layout: false, content_type: 'text/javascript'}
+    end
+		return
   end
 
   def destroy
@@ -45,6 +48,6 @@ class TemplatesController < ApplicationController
 
   private
   def template_params
-    params.require(:template).permit(:title,:category, :description)
+    params.require(:template).permit(:title, :category, :paragraph, :description,:api_key)
   end
 end

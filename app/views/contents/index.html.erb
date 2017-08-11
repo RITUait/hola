@@ -1,0 +1,122 @@
+<div class="well container">
+	<div class="col-sm-1">
+		<button id="prev">previous</button>
+	</div>
+	<div class="col-sm-10">
+		<table class="table table-bordered">
+			<tr>
+				<th>Name</th>
+		  	<th>email</th>
+  	  	<th>company</th>
+        <th>Status</th>
+  		</tr>
+			<tr>
+				<td id="contact_name"><%= @contacts[0].name %></td>
+				<td id="contact_email"><%= @contacts[0].email %></td>
+				<td id="contact_company"><%= @contacts[0].company %></td>
+        		<td id="contact_status"><%= @contacts[0].status %></td>
+			</tr>
+		</table>
+	</div>
+	<div class="col-sm-1">	
+		<button id="next">next</button>
+	</div>
+</div>
+<div class="card card-stats">
+	<%= bootstrap_form_for :email, url: send_email_path do |f| %>
+		<div class="col-md-12" class="card-header">
+			<%= f.text_area :subject %>
+			<%= f.text_area :greeting ,value: @contacts[0].name %>
+			<%= f.hidden_field :contact_id %>
+			<%= f.hidden_field :test_email, value: @signature_map %>
+			<%= f.hidden_field :contact_id, value: @contacts[0].id  %>
+		</div><br>
+		<div class="col-md-10"  align="left">
+			<button type="button" class="btn btn-success" id="add_textarea" >Add template</button>
+			</div>				
+				<div class="contents" >
+	    		<div class="row" id="temp0" >
+	    			<div class="col-md-10" class="card-content"><br>
+							<%= text_area_tag "description[]","",  class: "form-control description sig-description", placeholder: "Select a template from..." %>
+		      		<%= link_to 'Save as template', "javascript:void(0)", class: 'save_as_template pull-right' %> 
+		    		</div>  
+		    		<div class="col-md-2 templates-dropdown"><br>
+	        		<%= render 'templates/select_templates' %>
+	      		</div>
+					</div>
+				</div>
+					<div class="col-md-10 " >
+						<%= f.select :signature, @signatures_map %>
+					</div>
+	   			</div>  
+	   			<div class="card-footer"> 			 
+	 				<div class="col-md-8 pull-left" >
+	   				<%= f.submit "Send"%>  
+	   			</div>
+	   			<%end%>
+	   			<div class="col-md-2 pull-right">
+	 				<button class="btn btn-primary" id="preview">preview</button>
+	 			</div>
+	 			<div class="col-md-2 pull-right">
+	 				<button class="btn btn-primary" id="test_mail">Test mail</button>
+	 			<div>
+   			 </div>
+   			</div>
+   		</div>
+   	
+   	  
+   	<%= render 'form'%>
+   	
+	  </div>
+	  
+</div>
+
+<div class="container">
+<div class="col-md-12"> 
+  
+  <!-- Modal -->
+  <div class="modal fade" id="myModal1" role="dialog" value="">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+        	<label>Preview</label>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body container">        
+        	<div class="col-sm-12">
+        		<div class="col-sm-1">
+        			<label>To:</label>
+        		</div>
+        		<div class="col-sm-4">
+        			<p class="contact_email"></p>
+        		</div>
+        	</div>
+        	<div class="col-sm-8">
+        		<div class="col-sm-1">
+        			<label>Subject:</label>
+        		</div>
+        		<div class="col-sm-4">
+        			<p class="subject"></p>
+        		</div>
+        		<div class="col-sm-12">
+        			<p class="greeting"></p>
+        			<p align="justify" class="paragraph"></p>
+          		<p class="description"></p>
+          	</div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-danger btn-default pull-left"  data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div> 
+</div>
+</div>
+<%= javascript_tag do %>
+  window.templates = "<%= @templates.to_json %>";
+  var contacts = JSON.parse('<%= raw @contacts.to_json %>');
+  var i = 0;
+ <% end %>

@@ -1,3 +1,6 @@
+<% if flash[:notice] %>
+	<p class="alert alert-success"> no contacts left </p>
+<% end %>
 <div class="background">
 	<% @contacts.tag_counts.each do |t| %>
   	<% contacts = Contact.tagged_with(t.name)%>
@@ -15,11 +18,11 @@
 							</div>
 							<div class="card-footer" align="right">
 								<p> email Sent </p>
-								<p class=" rcorners1" class="title" align="center" ><%= f["sent"] %>/<%= f["total"] %></p>
+								<h3 class="title" ><%= f["sent"] %>/<%= f["total"] %></h>
 							</div>
 							<div class="card-footer" align="right">
 								<div class="stats">
-									<%= link_to "Send email", root_path(flag: f["tag"]), method: :get, class: "btn btn-primary" %>
+									<%= link_to "Send email", contents_path(context: f["tag"]), method: :get, class: "btn btn-primary" %>
 								</div>
 							</div>
 						</div>

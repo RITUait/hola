@@ -1,10 +1,6 @@
 class ContactsController < ApplicationController
   def index
-    if params[:tag]
-      @contacts = Contact.tagged_with(params[:tag])
-    else
-      @contacts = Contact.all
-    end
+    @contacts = Contact.all
   end
 
   def import

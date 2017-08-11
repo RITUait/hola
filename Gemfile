@@ -22,12 +22,14 @@ gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
-
+gem 'sendgrid-actionmailer'
 gem 'devise'
 gem 'bootstrap-sass'
 gem 'nested_form'
 gem 'bootstrap_form'
 gem 'jquery-rails'
+gem 'postmark', '0.8.0'
+gem 'postmark-rails', '0.3.0'
 
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'
@@ -52,7 +54,10 @@ group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '~> 2.13'
+  gem 'rspec-rails', '~> 3.5'
+  gem 'rails-controller-testing'
   gem 'selenium-webdriver'
+  gem 'simplecov', :require => false, :group => :test
 end
 
 group :development do

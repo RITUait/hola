@@ -5,7 +5,7 @@ class CreateSignatures < ActiveRecord::Migration[5.0]
       t.string 'email'
       t.string 'smtp_mail_server'
       t.string 'port'
-      t.string 'user_name'
+      t.string 'api_key'
       t.string 'password'
       t.string 'domain'
       t.timestamps

@@ -1,14 +1,14 @@
-class SignaturesController < ApplicationController
+class SignaturesController < ApplicationController    
   def index
     @signature = Signature.all
   end
   def new
-    @signature = Signature.new
+    @signature = Signature.new(name: 'sam')
   end
   def create
     @signature = Signature.new(signature_params)
     if @signature.save
-        redirect_to signatures_path
+        redirect_to dashboard_index_path
     else
         render :new
     end
@@ -21,12 +21,9 @@ class SignaturesController < ApplicationController
       render :new
     end 
   end
-  def preview
-    SignatureMailer.test_email(@contact.id, @signature.id)
-  end
   
-    def signature_params
-      params.require(:signature).permit(:name,:email,:address,:password,:port,:user_name,:smtp_mail_server,:domain)
-    end
+  def signature_params
+    params.require(:signature).permit(:name,:email,:smtp_mail_server,:api_key,:domain)
+  end
      
 end

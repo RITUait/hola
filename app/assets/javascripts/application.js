@@ -20,5 +20,7 @@
 //= require jquery.easy-pie-chart
 
 
+$('.alert').fadeOut(3000);
+
 
 
