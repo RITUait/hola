@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe ContactsController, type: :controller do
-	describe "GET index" do
+  describe "GET index" do
     it "gets Contacts with tags" do
       get :index
       expect(response).to be_success

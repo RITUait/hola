@@ -23,6 +23,29 @@ class ContentsController < ApplicationController
     SignatureMailer.test_email(@contact.id, @signature.id, @descriptions,@paragraph,@subject,@greeting).deliver_now
     redirect_to (contents_path(:context => @contact.tag_list))
   end
+
+  def self_email
+    @descriptions = params[:description]
+    @greeting = params[:email][:greeting]
+    @subject = params[:email][:subject]
+    @contact = Contact.find(params[:email][:contact_id])
+    @paragraph = params[:email][:paragraph]                                                                      
+    @signature = Signature.find_by(email: params[:email][:signature])
+    #byebug
+    SignatureMailer.test_email(@signature.id,@signature.id, @descriptions,@paragraph,@subject,@greeting).deliver_now
+    respond_to do |format|
+      format.js { 
+
+      }
+      format.html{
+        flash[:alert] = "Email sent"
+        redirect_to (contents_path(:context => @contact.tag_list))
+
+      }
+    end
+    
+  end
+
   
   def show
     @template = Template.find params[:id]

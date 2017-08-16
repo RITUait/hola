@@ -39,6 +39,8 @@ jQuery ->
     #$.post("/templates",{template:{title:"#{heading}",description:"#{ans}"}})
     return
 
+  
+
   $(document).on "change", "#template", ->
     selectedid = $(this).find("option:selected").val()
     obj = $(this).parent().parent().find('.description')

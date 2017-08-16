@@ -13,6 +13,12 @@ RSpec.describe Contact, type: :model do
       Contact.import(@file_name)
     end
 	end
+  describe Contact do
+    it "has a valid factory" do
+      FactoryGirl.create(:contact).should be_valid
+    end
+    it "is invalid without a email"
+  end
   subject { described_class.new }
 	it "is valid with valid attributes" do
 		subject.name = "Anything"

@@ -1,4 +1,4 @@
-<div class="well container">
+<div class="well container" class="col-sm-12">
 	<div class="col-sm-1">
 		<button id="prev">previous</button>
 	</div>
@@ -6,12 +6,12 @@
 		<table class="table table-bordered">
 			<tr>
 				<th>Name</th>
-		  	<th>email</th>
-  	  	<th>company</th>
-        <th>Status</th>
-  		</tr>
-			<tr>
-				<td id="contact_name"><%= @contacts[0].name %></td>
+				<th>email</th>
+  	  			<th>company</th>
+        		<th>Status</th>
+  			</tr>
+  			<tr>
+  				<td id="contact_name"><%= @contacts[0].name %></td>
 				<td id="contact_email"><%= @contacts[0].email %></td>
 				<td id="contact_company"><%= @contacts[0].company %></td>
         		<td id="contact_status"><%= @contacts[0].status %></td>
@@ -22,17 +22,20 @@
 		<button id="next">next</button>
 	</div>
 </div>
-<div class="card card-stats">
-	<%= bootstrap_form_for :email, url: send_email_path do |f| %>
+<% if flash[:alert] %>
+	<p class="alert alert-success"> email sent </p>
+<% end %>
+<div class="card card-stats" >
+	<%= bootstrap_form_for :email, html: { id: "form" }, url: send_email_path, remote: true do |f| %>
 		<div class="col-md-12" class="card-header">
 			<%= f.text_area :subject %>
 			<%= f.text_area :greeting ,value: @contacts[0].name %>
 			<%= f.hidden_field :contact_id %>
-			<%= f.hidden_field :test_email, value: @signature_map %>
+			<%= f.hidden_field :test_email %>
 			<%= f.hidden_field :contact_id, value: @contacts[0].id  %>
 		</div><br>
 		<div class="col-md-10"  align="left">
-			<button type="button" class="btn btn-success" id="add_textarea" >Add template</button>
+			<button type="button" class="btn btn-success" id="add_textarea" >Add paragraph</button>
 			</div>				
 				<div class="contents" >
 	    		<div class="row" id="temp0" >
@@ -59,7 +62,7 @@
 	 			</div>
 	 			<div class="col-md-2 pull-right">
 	 				<button class="btn btn-primary" id="test_mail">Test mail</button>
-	 			<div>
+	 			</div>
    			 </div>
    			</div>
    		</div>

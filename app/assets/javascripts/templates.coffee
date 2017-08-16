@@ -44,6 +44,14 @@ jQuery ->
   	$("#email_contact_id").val(contacts[i].id)
   	$("#email_greeting").val("Dear"+"" + $("#contact_name").text())
   	return
+
+  $("#test_mail").click (e) ->
+    $('#form').attr('action','/self_email')
+    e.preventDefault()
+    $('#form').submit()
+
+    return
+
   $("#preview").click ->
   	 $('#myModal1').find('.signature_email').text($("#email_Add_signature"))
   	 $('#myModal1').find('.contact_email').text($("#contact_email").text())

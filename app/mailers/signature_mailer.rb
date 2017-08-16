@@ -16,9 +16,9 @@ class SignatureMailer < ApplicationMailer
       :authentication => 'plain',
       :enable_starttls_auto => true 
     }
-   
     mail(from: @signature.email, to: @contact.email, subject: @subject,delivery_method_options: options)
     
   end  
+  
   
 end

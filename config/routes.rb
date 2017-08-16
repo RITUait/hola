@@ -15,7 +15,8 @@ Rails.application.routes.draw do
   end
 
   get 'tags/:tag', to: 'contacts#index', as: :tag
-  post 'send_email', to: "contents#send_email", as: :send_email
+  post 'send_email', to: 'contents#send_email', as: :send_email
+  post 'self_email', to: 'contents#self_email', as: :self_email
   get '/templates/:id', to: 'contents#index', constraints: { id: '#{selectedid}' }
 
   #if Rails.env.development?
