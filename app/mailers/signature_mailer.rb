@@ -19,6 +19,24 @@ class SignatureMailer < ApplicationMailer
     mail(from: @signature.email, to: @contact.email, subject: @subject,delivery_method_options: options)
     
   end  
-  
+  def self_email(signature_id, descriptions,paragraph,subject,greeting)
+    @descriptions = descriptions
+    @subject = subject
+    @greeting = greeting
+    @paragraph = paragraph
+    @signature = Signature.find(signature_id)
+   # byebug
+    options = { 
+      :user_name => 'apikey',
+      :address => @signature.smtp_mail_server,
+      :domain => @signature.domain,
+      :port => '587',
+      :password => @signature.api_key,
+      :authentication => 'plain',
+      :enable_starttls_auto => true 
+    }
+    mail(from: @signature.email, to: @signature.email, subject: @subject,delivery_method_options: options)
+    
+  end  
   
 end
