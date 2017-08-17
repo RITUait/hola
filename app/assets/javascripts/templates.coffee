@@ -79,21 +79,28 @@ jQuery ->
       type: "post",
       dataType: "json",
       success: (data) ->
+
         console.log(data)
         console.log i
-        
+
         # $("#table").html(data)
         # data contains html with updated values
         # use jquery selector for id table
         contact = data['contacts']
-        $("#contact_name").text(contact[i].name)
-        $("#contact_email").text(contact[i].email)
-        $("#contact_company").text(contact[i].company)
-        $("#contact_status").text(contact[i].status)
-        $("#contact_company").text(contacts[i].company)
-        $("#email_greeting").val("Dear"+"" + $("#contact_name").text())
+        console.log(contact)
+        if(contact.empty)
+          console.log("test")
+          window.location.href = "/"
+        else
+          $("#contact_name").text(contact[i].name)
+          $("#contact_email").text(contact[i].email)
+          $("#contact_company").text(contact[i].company)
+          $("#contact_status").text(contact[i].status)
+          $("#contact_company").text(contacts[i].company)
+          $("#email_greeting").val("Dear"+"" + $("#contact_name").text())
         # replace the contents of above table tag with "data"
-        i++
+          i++
+          
       error: (data)->
         console.log(data)
     })

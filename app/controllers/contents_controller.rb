@@ -17,11 +17,14 @@ class ContentsController < ApplicationController
     @subject = params[:email][:subject]
     @paragraph = params[:email][:paragraph]
     @contact = Contact.find(params[:email][:contact_id])
-    @contacts = Contact.tagged_with(params[:context]).where(status: false)
+    
     @signature = Signature.find_by(email: params[:email][:signature])
-    @contact.update(status: true)
+
     
     SignatureMailer.test_email(@contact.id, @signature.id, @descriptions,@paragraph,@subject,@greeting)
+    #byebug
+    @contact.update(status: true)
+    @contacts = Contact.tagged_with(params[:context]).where(status: false)
     respond_to do |format|
       format.json { 
         #@contact = Contact.find(params[:email][:contact_id])

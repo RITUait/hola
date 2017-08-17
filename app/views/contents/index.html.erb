@@ -1,9 +1,9 @@
-<div class="well container" class="col-sm-12">
+<div  class="well container" class="col-sm-12">
 	<div class="col-sm-1">
 		<button id="prev">previous</button>
 	</div>
 	<div class="col-sm-10">
-		<table class="table table-bordered">
+		<table id= "table" class="table table-bordered">
 			<tr>
 				<th>Name</th>
 				<th>email</th>
@@ -31,7 +31,7 @@
 			<%= f.text_area :subject %>
 			<%= f.text_area :greeting ,value: @contacts[0].name %>
 			<%= f.hidden_field :contact_id %>
-			<%= f.hidden_field :test_email %>
+			<%= f.hidden_field :tag ,value: @contacts.tag_counts.first.name%>
 			<%= f.hidden_field :contact_id, value: @contacts[0].id  %>
 		</div><br>
 		<div class="col-md-10"  align="left">
@@ -39,12 +39,16 @@
 			</div>				
 				<div class="contents" >
 	    		<div class="row" id="temp0" >
-	    			<div class="col-md-10" class="card-content"><br>
+	    			<div class="col-md-8" class="card-content"><br>
 							<%= text_area_tag "description[]","",  class: "form-control description sig-description", placeholder: "Select a template from..." %>
 		      		<%= link_to 'Save as template', "javascript:void(0)", class: 'save_as_template pull-right' %> 
 		    		</div>  
 		    		<div class="col-md-2 templates-dropdown"><br>
+		    
 	        		<%= render 'templates/select_templates' %>
+	      		</div>
+	      			<div class="col-md-2 "><br>
+		    		<button class="btn btn-primary" id="remove">Remove</button>
 	      		</div>
 					</div>
 				</div>
@@ -54,7 +58,7 @@
 	   			</div>  
 	   			<div class="card-footer"> 			 
 	 				<div class="col-md-8 pull-left" >
-	   				<%= f.submit "Send"%>  
+	   				<%= f.submit "send",id: "send" %> 
 	   			</div>
 	   			<%end%>
 	   			<div class="col-md-2 pull-right">
@@ -88,7 +92,7 @@
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
         <div class="modal-body container">        
-        	<div class="col-sm-12">
+        	<div class="col-sm-5">
         		<div class="col-sm-1">
         			<label>To:</label>
         		</div>
@@ -103,7 +107,7 @@
         		<div class="col-sm-4">
         			<p class="subject"></p>
         		</div>
-        		<div class="col-sm-12">
+        		<div class="col-sm-8">
         			<p class="greeting"></p>
         			<p align="justify" class="paragraph"></p>
           		<p class="description"></p>

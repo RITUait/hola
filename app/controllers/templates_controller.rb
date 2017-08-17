@@ -38,7 +38,7 @@ class TemplatesController < ApplicationController
       format.json { render json: {"description" => @template.description}}
       #format.js { render layout: false, content_type: 'text/javascript'}
     end
-		return
+    return
   end
 
   def destroy

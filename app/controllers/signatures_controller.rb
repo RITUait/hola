@@ -1,4 +1,4 @@
-class SignaturesController < ApplicationController    
+class SignaturesController < ApplicationController
   def index
     @signature = Signature.all
   end
@@ -19,11 +19,11 @@ class SignaturesController < ApplicationController
       redirect_to signatures_path
     else
       render :new
-    end 
+    end
   end
-  
+
   def signature_params
     params.require(:signature).permit(:name,:email,:smtp_mail_server,:api_key,:domain)
   end
-     
+
 end
