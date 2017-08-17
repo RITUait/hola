@@ -10,7 +10,11 @@ jQuery ->
      t = $(".row:first").html()
      console.log(t)
      $(".contents").append("<div class='row' id='temp#{index}'>" + t+ "</div>")
-     return
+  $("#remove").click ->
+    alert 'do you want to'
+    $($('#remove').parent()).parent().remove()
+    index--
+    return
 
   $(document).on "click", ".save_as_template", ->
     #v = $(this).parent().find("textarea").val()
@@ -39,7 +43,7 @@ jQuery ->
     #$.post("/templates",{template:{title:"#{heading}",description:"#{ans}"}})
     return
 
-  
+
 
   $(document).on "change", "#template", ->
     selectedid = $(this).find("option:selected").val()
@@ -50,6 +54,7 @@ jQuery ->
       success: (data, textStatus, jqXHR) ->
         console.log(data["description"])
         obj.val(data["description"])
+
 
     return
   return
