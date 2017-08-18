@@ -10,9 +10,9 @@ jQuery ->
      t = $(".row:first").html()
      console.log(t)
      $(".contents").append("<div class='row' id='temp#{index}'>" + t+ "</div>")
-  $("#remove").click ->
-    alert 'do you want to'
-    $($('#remove').parent()).parent().remove()
+  $(document).on 'click', '#remove', ->
+    alert 'do you want to remove'
+    $($(this).parent()).parent().remove()
     index--
     return
 
