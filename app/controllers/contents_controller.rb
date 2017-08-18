@@ -20,11 +20,12 @@ class ContentsController < ApplicationController
     
     @signature = Signature.find_by(email: params[:email][:signature])
 
-    
-    SignatureMailer.test_email(@contact.id, @signature.id, @descriptions,@paragraph,@subject,@greeting)
+    p 
+    SignatureMailer.test_email(@contact.id, @signature.id, @descriptions,@paragraph,@subject,@greeting).deliver_now
     #byebug
     @contact.update(status: true)
     @contacts = Contact.tagged_with(params[:context]).where(status: false)
+    p @contacts
     respond_to do |format|
       format.json { 
         #@contact = Contact.find(params[:email][:contact_id])
@@ -48,11 +49,13 @@ class ContentsController < ApplicationController
     @signature = Signature.find_by(email: params[:email][:signature])
     
     SignatureMailer.self_email(@signature.id, @descriptions,@paragraph,@subject,@greeting).deliver_now
+    
+      
     respond_to do |format|
       #byebug
       format.js {
+        flash[:notice] = "Email sent"
         @contact = Contact.find(params[:email][:contact_id])
-        flash[:alert] = "Email sent"
       }
       format.html{
 
