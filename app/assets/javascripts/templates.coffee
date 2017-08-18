@@ -68,7 +68,9 @@ jQuery ->
   $("#send").click  (e)->
     subject = $("#email_subject").val()
     greeting = $("#email_greeting").val()
-    contact_id = $("#email_contact_id").val(contacts[i].id).val()
+    contact_id = $("#email_contact_id").val()
+    console.log(contact_id+ "888888888")
+    console.log(contacts)
     signature = $("#email_signature").val()
     context = $("#email_tag").val()
     description = $("#description_").val()
@@ -87,19 +89,19 @@ jQuery ->
         # data contains html with updated values
         # use jquery selector for id table
         contact = data['contacts']
-        console.log(contact)
-        if(contact.empty)
+        console.log(contact, contact.length, i)
+        if(contact.length is 0)
           console.log("test")
           window.location.href = "/"
         else
-          $("#contact_name").text(contact[i].name)
-          $("#contact_email").text(contact[i].email)
-          $("#contact_company").text(contact[i].company)
-          $("#contact_status").text(contact[i].status)
-          $("#contact_company").text(contacts[i].company)
+          console.log('first contact: ', contact[0])
+          $("#contact_name").text(contact[0].name)
+          $("#contact_email").text(contact[0].email)
+          $("#contact_company").text(contact[0].company)
+          $("#email_contact_id").val(contact[0].id)
+          $("#contact_status").text(contact[0].status)
           $("#email_greeting").val("Dear"+"" + $("#contact_name").text())
         # replace the contents of above table tag with "data"
-          i++
           
       error: (data)->
         console.log(data)
