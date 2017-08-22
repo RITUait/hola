@@ -22,15 +22,32 @@
 		<button id="next">next</button>
 	</div>
 </div>
-<% if flash[:alert] %>
+<% if flash[:notice] %>
 	<p class="alert alert-success"> email sent </p>
 <% end %>
+
+
+
+<br/>
+
 <div class="card card-stats" >
+	<select id="fs"> 
+        <option value="Arial">Arial</option>
+        <option value="Verdana ">Verdana </option>
+        <option value="Impact ">Impact </option>
+        <option value="Comic Sans MS">Comic Sans MS</option>
+    </select>
+    
+    <select id="size">
+        <option value="7">7</option>
+        <option value="10">10</option>
+        <option value="20">20</option>
+        <option value="30">30</option>
+    </select>
 	<%= bootstrap_form_for :email, html: { id: "form" }, url: send_email_path, remote: true do |f| %>
 		<div class="col-md-12" class="card-header">
 			<%= f.text_area :subject %>
 			<%= f.text_area :greeting ,value: @contacts[0].name %>
-			<%= f.hidden_field :contact_id %>
 			<%= f.hidden_field :tag ,value: @contacts.tag_counts.first.name%>
 			<%= f.hidden_field :contact_id, value: @contacts[0].id  %>
 		</div><br>
@@ -38,9 +55,9 @@
 			<button type="button" class="btn btn-success" id="add_textarea" >Add paragraph</button>
 			</div>				
 				<div class="contents" >
-	    		<div class="row" id="temp0" >
-	    			<div class="col-md-8" class="card-content"><br>
-							<%= text_area_tag "description[]","",  class: "form-control description sig-description", placeholder: "Select a template from..." %>
+	    		<div class="row" id="temp0">
+	    			<div class="col-md-8" class="card-content" ><br>
+							<%= text_area_tag "description[]","",  class: "form-control description sig-description" ,placeholder: "Select a template from..." %>
 		      		<%= link_to 'Save as template', "javascript:void(0)", class: 'save_as_template pull-right' %> 
 		    		</div>  
 		    		<div class="col-md-2 templates-dropdown"><br>
@@ -122,6 +139,7 @@
   </div> 
 </div>
 </div>
+
 <%= javascript_tag do %>
   window.templates = "<%= @templates.to_json %>";
   var contacts = JSON.parse('<%= raw @contacts.to_json %>');

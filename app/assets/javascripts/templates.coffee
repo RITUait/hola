@@ -47,7 +47,7 @@ jQuery ->
     $('#myModal1').find('.contact_email').text($("#contact_email").text())
     $('#myModal1').find('.greeting').text($("#email_greeting").val())
     $('#myModal1').find('.subject').text($("#email_subject").val())
-    descriptions = $(".sig-description")
+    #descriptions = $(".sig-description")
     data = []
     for i in [0..$(".description").length-1]
       arr1 = $($(".description")[i]).val().split("\n")
@@ -65,6 +65,14 @@ jQuery ->
     $('#form').submit()
     return
 
+  $("#bold").click ->
+    highlight = window.getSelection()
+    span = '<span class="bold">' + highlight + '</span>'
+    text = $('#description').html()
+    console.log(highlight)
+    $('#description').html text.replace(highlight, span).val()
+    return
+
   $("#send").click  (e)->
     subject = $("#email_subject").val()
     greeting = $("#email_greeting").val()
@@ -73,6 +81,10 @@ jQuery ->
     console.log(contacts)
     signature = $("#email_signature").val()
     context = $("#email_tag").val()
+    for i in [0..$(".description").length-1]
+      arr1 = $($(".description")[i]).val().split("\n")
+      for j in [0..arr1.length - 1]
+        data.push(arr1[j] + "<br>")
     description = $("#description_").val()
     e.preventDefault()
     $.ajax ({

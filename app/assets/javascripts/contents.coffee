@@ -42,8 +42,21 @@ jQuery ->
     })
     #$.post("/templates",{template:{title:"#{heading}",description:"#{ans}"}})
     return
-
-
+  $('#fs').change ->
+    #alert($(this).val());
+    $('.description').css 'font-family', $(this).val()
+    $('#email_greeting').css 'font-family', $(this).val()
+    return
+  
+  $('#size').change ->
+    $('.description').css 'font-size', $(this).val() + 'px'
+    return
+  $('#jBold').click ->
+    document.execCommand 'bold'
+    return
+  $('#jitalic').click ->
+    document.execCommand 'italic'
+    return
 
   $(document).on "change", "#template", ->
     selectedid = $(this).find("option:selected").val()
@@ -58,6 +71,28 @@ jQuery ->
 
     return
   return
+
+getSelText = ->
+  txt = ''
+  if window.getSelection
+    txt = window.getSelection()
+  else if document.getSelection
+    txt = document.getSelection()
+  else if document.selection
+    txt = document.selection.createRange().text
+  else
+    return
+  txt
+
+  $('.boldtrigger').click ->
+   selection = getSelText()
+   console.log 'selected value', selection
+   range = selection.getRangeAt(0)
+   if selection.toString().length > 2
+     newNode = document.createElement('span')
+     newNode.setAttribute 'class', 'selectedText'
+     range.surroundContents newNode
+   return
 
 
 
