@@ -30,27 +30,7 @@
 
 <br/>
 
-<div class="card card-stats" >
-	<select id="fs"> 
-        <option value="Arial">Arial</option>
-        <option value="Verdana ">Verdana </option>
-        <option value="Impact ">Impact </option>
-        <option value="Comic Sans MS">Comic Sans MS</option>
-    </select>
-    
-    <select id="size">
-        <option value="7">7</option>
-        <option value="10">10</option>
-        <option value="20">20</option>
-        <option value="30">30</option>
-    </select>
-    <button id="bold">B</button>
-    <button id="underline">U</button>
-    <button id= "italic">I</button>
-    <button id= "left"><span class = "glyphicon glyphicon-align-left"></span></button>
-    <button id= "right"><span class = "glyphicon glyphicon-align-right"></span></button>
-    <button id= "center"><span class = "glyphicon glyphicon-align-center"></span></button>
-    <button id= "justify"><span class = "glyphicon glyphicon-align-justify"></span></button>
+
 	<%= bootstrap_form_for :email, html: { id: "form" }, url: send_email_path, remote: true do |f| %>
 		<div class="col-md-12"  class="card-header">
 			<%= f.text_area :subject %>
