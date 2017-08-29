@@ -21,20 +21,26 @@ class ContentsController < ApplicationController
     @signature = Signature.find_by(email: params[:email][:signature])
 
     p 
-    SignatureMailer.test_email(@contact.id, @signature.id, @descriptions,@paragraph,@subject,@greeting).deliver_now
+    #byebug
+    
+    SignatureMailer.test_email(@contact.id, @signature.id, @descriptions,@paragraph,@subject,@greeting)
     #byebug
     @contact.update(status: true)
     @contacts = Contact.tagged_with(params[:context]).where(status: false)
+    
     p @contacts
     respond_to do |format|
       format.json { 
         #@contact = Contact.find(params[:email][:contact_id])
         #byebug
+       
         render json: {contacts: @contacts}, status: :ok
         flash[:alert] = "Email sent"
+
         #redirect_to (contents_path(:context => @contact.tag_list))             
       }
       format.html{
+
       }
     end
 
