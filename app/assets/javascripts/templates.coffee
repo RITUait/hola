@@ -22,6 +22,8 @@ jQuery ->
       #$("#mySelect").append("<option value='#{$(value).val()}'>" + $(value).val() + "</option>")
     $("#myModal").modal() 
     return
+  
+  
 
   $("#next").click ->
     i++
@@ -46,7 +48,7 @@ jQuery ->
     $('#myModal1').find('.signature_email').text($("#email_Add_signature"))
     $('#myModal1').find('.contact_email').text($("#contact_email").text())
     $('#myModal1').find('.greeting').text($("#email_greeting").val())
-    $('#myModal1').find('.subject').text($("#email_subject").val())
+    $('#myModal1').find('.subject').html($("#email_subject").val())
     #descriptions = $(".sig-description")
     data = []
     for i in [0..$(".description").length-1]
@@ -65,15 +67,10 @@ jQuery ->
     $('#form').submit()
     return
 
-  $("#bold").click ->
-    highlight = window.getSelection()
-    span = '<span class="bold">' + highlight + '</span>'
-    text = $('#description').html()
-    console.log(highlight)
-    $('#description').html text.replace(highlight, span).val()
-    return
+  
 
-  $("#send").click  (e)->
+  
+  $("#send").click ->
     subject = $("#email_subject").val()
     greeting = $("#email_greeting").val()
     contact_id = $("#email_contact_id").val()
@@ -81,12 +78,12 @@ jQuery ->
     console.log(contacts)
     signature = $("#email_signature").val()
     context = $("#email_tag").val()
+    data = []
     for i in [0..$(".description").length-1]
       arr1 = $($(".description")[i]).val().split("\n")
       for j in [0..arr1.length - 1]
         data.push(arr1[j] + "<br>")
     description = $("#description_").val()
-    e.preventDefault()
     $.ajax ({
       url:"/send_email"
       data: {email: {subject:"#{subject}",greeting: "#{greeting}",contact_id:"#{contact_id}",signature: "#{signature}"},context: "#{context}",description: "#{description}" },
@@ -106,7 +103,7 @@ jQuery ->
           console.log("test")
           window.location.href = "/"
         else
-          console.log('first contact: ', contact[0])
+          console.log(contact[0])
           $("#contact_name").text(contact[0].name)
           $("#contact_email").text(contact[0].email)
           $("#contact_company").text(contact[0].company)
