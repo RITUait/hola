@@ -3,8 +3,7 @@
 	<%= f.text_field :name %>
 	<%= f.text_field :email %>
 	<%= f.text_field :company %>
-	<%= f.label :tag_list, "Tags (separated by commas)" %>
-	<%= f.text_field :tag_list %>
+	<%= f.text_field :tag_list,placeholder: 'Enter the conference name'%>
 	<%= f.submit "Save" %>
 <% end %>
 </div>
