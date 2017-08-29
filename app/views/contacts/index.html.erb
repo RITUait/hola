@@ -1,4 +1,4 @@
-<div class="col-sm-8">
+<div class="col-sm-12">
   <%= form_tag import_contacts_path, multipart: true do %>
     <div class="col-sm-4">
       <%= file_field_tag :file %>
@@ -6,19 +6,26 @@
     <div class="col-sm-4">
       <%= submit_tag "Import CSV" %>
     </div>
+    <div class="col-sm-4">
+      
+      <%= link_to "Download sample CSV", "/contact.csv"%>
+    </div>
   <% end %>
 </div><br>
-<table class="table table-bordered">
+
+
+<br><br>
+<table class="table table-bordered table-striped">
   <th>Id</th>
   <th>Name</th>
   <th>email</th>
   <th>company</th>
-  <th>Tags</th>
+  <th>conference</th>
   <th>Status</th>
 
   <tbody>
     <% @contacts.each do |contact| %>
-      <tr>
+      <tr >
         <td><%= contact.id %></td>
         <td><%= contact.name %></td>
         <td><%= contact.email %></td>
@@ -31,7 +38,6 @@
 
   </tbody>
 </table>
-<
 <div align="center">
   <%= will_paginate @contacts%>
 </div>
