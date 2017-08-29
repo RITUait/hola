@@ -1,9 +1,9 @@
 class SignaturesController < ApplicationController
   def index
-    @signature = Signature.all
+    @signatures = Signature.all
   end
   def new
-    @signature = Signature.new(name: 'sam')
+    @signature = Signature.new
   end
   def create
     @signature = Signature.new(signature_params)
@@ -12,6 +12,9 @@ class SignaturesController < ApplicationController
     else
         render :new
     end
+  end
+  def edit
+    @signature = Signature.find(params[:id])
   end
   def update
     @signature = Signature.find(params[:id])
