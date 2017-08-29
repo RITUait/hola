@@ -15,14 +15,18 @@
     <nav class="navbar navbar-default">
     <div class="container-fluid">
       <ul class="navbar-brand" > <%= link_to "HOLA", dashboard_index_path %></ul>
-        <ul class="navbar-right navbar-brand dropdown">
-          <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span style="font-size:1.0em;" class="glyphicon glyphicon-th-list"> </a>
+        
+        <ul class="nav navbar-nav navbar-right">
+        <li><%= link_to "Email", new_signature_path %></li>
+        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" >Contact </a>
           <ul class="dropdown-menu">
-            <li><%= link_to "Add Email", new_signature_path %></li>
-            <li><%= link_to "Add Contact", contacts_path %></li>                     
+            <li><%= link_to "form", new_contact_path %></li>  
+            <li><%= link_to "upload contact", contacts_path %></li>
           </ul>
+        </li>
       </ul>
-      </div>
+
+        </div>
     </nav>
 
     <div class="container">
