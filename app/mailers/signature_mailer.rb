@@ -7,7 +7,9 @@ class SignatureMailer < ApplicationMailer
     @contact = Contact.find(contact_id)
     @signature = Signature.find(signature_id)
     print "delivered"
-    if (@signature.domain=="joshsoftware.com") then
+     byebug
+    if (@signature.smtp_mail_server =="smtp.sendgrid.net") then
+
     options = {
       :user_name => 'apikey',
       :address => @signature.smtp_mail_server,
@@ -15,6 +17,7 @@ class SignatureMailer < ApplicationMailer
       :password => @signature.api_key,
       :authentication => 'plain',
       :enable_starttls_auto => true
+
     }
   else
     options = {
