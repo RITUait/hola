@@ -22,12 +22,20 @@ jQuery ->
       #$("#mySelect").append("<option value='#{$(value).val()}'>" + $(value).val() + "</option>")
     $("#myModal").modal() 
     return
+
+  $('.next-step').click (e) ->
+    $active = $('.wizard .nav-tabs li.active')
+    $active.next().removeClass 'disabled'
+    nextTab $active
+    return
+
   
   
 
   $("#next").click ->
     i++
     #document.getElementById("next").innerHTML = contacts[i];
+    console.log(contact)
     contact = $("#next").val()
     $("#contact_name").html(contacts[i].name)
     $("#contact_email").html(contacts[i].email)
@@ -37,6 +45,9 @@ jQuery ->
     return
 
   $("#prev").click ->
+    if(contact[i] == 0)
+      $("#prev").hide()
+    else
     i--
     $("#contact_name").html(contacts[i].name)
     $("#contact_email").html(contacts[i].email)
@@ -61,16 +72,19 @@ jQuery ->
      return
 
   $("#test_mail").click (e) ->
+    e.preventDefault()
+
     alert 'Do you want send test mail.'
     $('#form').attr('action','/self_email')
-    e.preventDefault()
     $('#form').submit()
     return
 
   
 
   
-  $("#send").click ->
+  $("#send").click (e) ->
+    e.preventDefault()
+
     subject = $("#email_subject").val()
     greeting = $("#email_greeting").val()
     contact_id = $("#email_contact_id").val()
@@ -82,11 +96,11 @@ jQuery ->
     for i in [0..$(".description").length-1]
       arr1 = $($(".description")[i]).val().split("\n")
       for j in [0..arr1.length - 1]
-        data.push(arr1[j] + "<br>")
-    description = $("#description_").val()
+        data.push(arr1[j] )
+
     $.ajax ({
       url:"/send_email"
-      data: {email: {subject:"#{subject}",greeting: "#{greeting}",contact_id:"#{contact_id}",signature: "#{signature}"},context: "#{context}",description: "#{description}" },
+      data: {email: {subject:"#{subject}",greeting: "#{greeting}",contact_id:"#{contact_id}",signature: "#{signature}"},context: "#{context}",description: data },
       type: "post",
       dataType: "json",
       success: (data) ->
@@ -98,7 +112,7 @@ jQuery ->
         # data contains html with updated values
         # use jquery selector for id table
         contact = data['contacts']
-        console.log(contact, contact.length, i)
+        console.log(contact)
         if(contact.length is 0)
           console.log("test")
           window.location.href = "/"
