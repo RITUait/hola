@@ -1,9 +1,6 @@
-<% if flash[:notice] %>
-  <p class="alert alert-success"> no contacts left </p>
-<% end %>
 <div class="background">
   <% @contacts.tag_counts.each do |t| %>
-    <% contacts = Contact.tagged_with(t.name)%>
+    <% contacts = current_user.contacts.tagged_with(t.name)%>
     <% @c << {"tag" => t.name, "notsent" => contacts.where(status: false).count, "sent" => contacts.where(status: true).count, "total" => contacts.count } %>
   <% end %>
 
@@ -32,9 +29,6 @@
     </div>
   <% end %>
 </div>
-
-
-
 
 
 

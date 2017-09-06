@@ -1,16 +1,18 @@
 <div class="col-sm-12">
   <%= form_tag import_contacts_path, multipart: true do %>
-    <div class="col-sm-4">
+    <div class="col-sm-3">
       <%= file_field_tag :file %>
     </div>
-    <div class="col-sm-4">
+    <div class="col-sm-3">
       <%= submit_tag "Import CSV" %>
     </div>
-    <div class="col-sm-4">
-      
-      <%= link_to "Download sample CSV", "/contact.csv"%>
+    <div class="col-sm-3">
+    <%= link_to "Download sample CSV", "/contact.csv"%>
     </div>
   <% end %>
+  <div class="col-sm-3">
+   <%= link_to "<button>Add a contact</button>".html_safe, new_contact_path, :id => "button_id", :class => "button_class" %>
+    </div>
 </div><br>
 
 
@@ -22,6 +24,8 @@
   <th>company</th>
   <th>conference</th>
   <th>Status</th>
+  <th> Edit </th>
+  <th> Delete </th>
 
   <tbody>
     <% @contacts.each do |contact| %>
@@ -33,6 +37,14 @@
         <p>
         <td><%= link_to contact.tag_list  %></td></p>
         <td><%= contact.status %></td>
+          <td><%= link_to edit_contact_path(contact), class: "button" do %>
+            <i class="glyphicon glyphicon-pencil"></i>
+            <% end %>
+        </td> 
+        <td><%= link_to contact,  method: :delete, data: {confirm: "are you sure?"}, class: "button" do%> 
+          <i class="glyphicon glyphicon-trash"></i>
+            <% end %>
+        </td>
       </tr>
     <% end %>
 

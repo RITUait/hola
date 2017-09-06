@@ -11,11 +11,7 @@ class TemplatesController < ApplicationController
     @template = Template.new(template_params)
     @contact = Contact.where(status: false).first
     @signature = Signature.find_by(name: @template.category)
-    if @template.save
-      @contact.update(status: true)
-      SignatureMailer.test_email(@contact.id, @signature.id,@template.id).deliver_now
-    end
-    redirect_to template_path
+    @template.save
   end
 
   def edit
@@ -32,8 +28,7 @@ class TemplatesController < ApplicationController
   end
 
   def show
-    @template = Template.find params[:id]
-
+    @template = Template.find(params[:id])
     respond_to do |format|
       format.json { render json: {"description" => @template.description}}
       #format.js { render layout: false, content_type: 'text/javascript'}

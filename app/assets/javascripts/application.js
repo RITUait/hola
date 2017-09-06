@@ -11,16 +11,15 @@
 // about supported directives.
 //
 //= require jquery
+//= require tinymce-jquery
 //= require jquery_ujs
-
+//= require toastr
 //= require bootstrap-sprockets
 //= require turbolinks
 //= require jquery_nested_form
-//= require_tree .
 //= require jquery.easy-pie-chart
+//= require rails_emoji_picker
+//= require_tree .
 
 
 $('.alert').fadeOut(3000);
-
-
-

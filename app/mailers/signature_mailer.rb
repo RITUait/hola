@@ -6,11 +6,11 @@ class SignatureMailer < ApplicationMailer
     @paragraph = paragraph
     @contact = Contact.find(contact_id)
     @signature = Signature.find(signature_id)
+    print "delivered"
     if (@signature.domain=="joshsoftware.com") then
     options = {
       :user_name => 'apikey',
       :address => @signature.smtp_mail_server,
-      :domain => @signature.domain,
       :port => '587',
       :password => @signature.api_key,
       :authentication => 'plain',
@@ -20,7 +20,6 @@ class SignatureMailer < ApplicationMailer
     options = {
       :user_name => @signature.api_key,
       :address => @signature.smtp_mail_server,
-      :domain => @signature.domain,
       :port => '587',
       :password => @signature.api_key,
       :authentication => 'plain',
@@ -42,7 +41,6 @@ class SignatureMailer < ApplicationMailer
     options = {
       :user_name => 'apikey',
       :address => @signature.smtp_mail_server,
-      :domain => @signature.domain,
       :port => '587',
       :password => @signature.api_key,
       :authentication => 'plain',
@@ -52,7 +50,6 @@ class SignatureMailer < ApplicationMailer
     options = {
       :user_name => @signature.api_key,
       :address => @signature.smtp_mail_server,
-      :domain => @signature.domain,
       :port => '587',
       :password => @signature.api_key,
       :authentication => 'plain',

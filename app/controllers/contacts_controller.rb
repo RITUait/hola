@@ -1,6 +1,6 @@
 class ContactsController < ApplicationController
   def index
-    @contacts = Contact.all.paginate(page: params[:page], per_page: 10)
+    p @contacts = current_user.contacts.all.paginate(page: params[:page], per_page: 10)
    
   end
 
@@ -21,15 +21,32 @@ class ContactsController < ApplicationController
   end
 
   def create
+    @user = current_user.id
+    @contacts = current_user.signatures    
     @contact = Contact.new(contact_params)
-    if @contact.save
-        redirect_to contacts_path
-    else
+    @contact.user_id = current_user.id
+    if @contacts.empty?
+      if @contact.save
+        redirect_to root_path
+      else
         render :new
+        p @contact.errors
+      end
+    else
+      if @contact.save
+        redirect_to contacts_path
+      else
+        render :new
+        p @contact.errors
+      end
     end
   end
   def edit
     @contact = Contact.find(params[:id])
+  end
+  def destroy
+    Contact.find(params[:id]).destroy
+    redirect_to contacts_path
   end
   def update
     @contact= Contact.find(params[:id])
@@ -41,7 +58,7 @@ class ContactsController < ApplicationController
   end
 
   def contact_params
-  	params.require(:contact).permit(:name,:email,:company,:conference,:tag_list)
+  	params.require(:contact).permit(:name,:email,:company,:conference,:tag_list,:user_id)
   end
 
 end

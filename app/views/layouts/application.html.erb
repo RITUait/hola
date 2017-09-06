@@ -12,25 +12,24 @@
 
 
   <body>
-    <nav class="navbar navbar-default">
-    <div class="container-fluid">
-      <ul class="navbar-brand" > <%= link_to "HOLA", dashboard_index_path %></ul>
-        
-        <ul class="nav navbar-nav navbar-right">
-        <li><%= link_to "Email", new_signature_path %></li>
-        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" >Contact </a>
-          <ul class="dropdown-menu">
-            <li><%= link_to "form", new_contact_path %></li>  
-            <li><%= link_to "upload contact", contacts_path %></li>
-          </ul>
-        </li>
-      </ul>
-
-        </div>
-    </nav>
-
+  
+    <% if user_signed_in? %>
+       <% if (current_user.admin == false) %>
+        <%= render "layouts/header" %>
+        <% else %>
+        <%= render "layouts/admin" %>
+      <% end %>
+    <% end %>
     <div class="container">
       <%= yield %>
     </div>
+    <% unless flash.empty? %>
+      <script type="text/javascript">
+        <% flash.each do |f| %>
+          <% type = f[0].to_s.gsub('alert', 'error').gsub('notice', 'info') %>
+         toastr['<%= type %>']('<%= f[1] %>');
+        <% end %>
+     </script>
+    <% end %>
   </body>
 </html>

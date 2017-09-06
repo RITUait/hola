@@ -8,6 +8,7 @@ class CreateSignatures < ActiveRecord::Migration[5.0]
       t.string 'api_key'
       t.string 'password'
       t.string 'domain'
+      t.belongs_to :user, index: true
       t.timestamps
     end
   end

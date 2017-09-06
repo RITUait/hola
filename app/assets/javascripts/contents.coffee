@@ -3,18 +3,22 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 
+
 jQuery ->
   index = 0
   $("#add_textarea").click ->
+     # console.log('old index: ', index)
      index = index + 1
      t = $(".row:first").html()
-     console.log(t)
      $(".contents").append("<div class='row' id='temp#{index}'>" + t+ "</div>")
+     return
+
   $(document).on 'click', '#remove', ->
     alert 'do you want to remove'
     $($(this).parent()).parent().remove()
     index--
     return
+
 
   $(document).on "click", ".save_as_template", ->
     #v = $(this).parent().find("textarea").val()
@@ -24,12 +28,15 @@ jQuery ->
     description = $(this).parent().find("textarea").val()
     console.log("#{description}")
     $("#myModal").val(description)
-    console.log("#{description}")
+    console.log(description)
 
     $("#myModal").modal()
     return 
 
+  
+
   $("#modal_submit").click  ->
+
     heading = $("#Heading").val()
     ans = $("#myModal").val()
 
@@ -42,25 +49,14 @@ jQuery ->
     })
     #$.post("/templates",{template:{title:"#{heading}",description:"#{ans}"}})
     return
-  $('#fs').change ->
-    #alert($(this).val());
-    $('.description').css 'font-family', $(this).val()
-    $('#email_greeting').css 'font-family', $(this).val()
-    return
-  
-  $('#size').change ->
-    $('.description').css 'font-size', $(this).val() + 'px'
-    return
-  $('#jBold').click ->
-    document.execCommand 'bold'
-    return
-  $('#jitalic').click ->
-    document.execCommand 'italic'
-    return
 
+  
+
+  
   $(document).on "change", "#template", ->
     selectedid = $(this).find("option:selected").val()
     obj = $(this).parent().parent().find('.description')
+    console.log(obj)
     $.ajax "/templates/"+selectedid,
       type: "get"
       dataType: "json"
@@ -68,31 +64,64 @@ jQuery ->
         console.log(data["description"])
         obj.val(data["description"])
 
+    return
+
+  nextTab = (elem) ->
+    $(elem).next().find('a[data-toggle="tab"]').click()
+    return
+
+  prevTab = (elem) ->
+    $(elem).prev().find('a[data-toggle="tab"]').click()
+    return
+ 
+  $('.nav-tabs > li a[title]').tooltip()
+ 
+  $('a[data-toggle="tab"]').on 'show.bs.tab', (e) ->
+    $target = $(e.target)
+    if $target.parent().hasClass('disabled')
+      return false
+    return
+
+  $('#btn1').click ->
+    $('#btn1').hide()
+    return
+
+  $('#btn2').click ->
+    $('#btn2').hide()
+    return
+  
+  $('#form_1').submit (e) ->
+    $active = $('.wizard .nav-tabs li.active')
+    $active.next().removeClass 'disabled'
+    nextTab $active
+    return
+
+  $('#form_2').submit (e) ->
+    $active = $('.wizard .nav-tabs li.active')
+    $active.next().removeClass 'disabled'
+    nextTab $active
+    return
+
+  $('.nextcontent').click (e) ->
+    $active = $('.wizard .nav-tabs li.active')
+    $active.next().removeClass 'disabled'
+    nextTab $active
 
     return
-  return
 
-getSelText = ->
-  txt = ''
-  if window.getSelection
-    txt = window.getSelection()
-  else if document.getSelection
-    txt = document.getSelection()
-  else if document.selection
-    txt = document.selection.createRange().text
-  else
+  $('a[data-toggle="tab"]').on 'show.bs.tab', (e) ->
+    $target = $(e.target)
+    if $target.parent().hasClass('disabled')
+      return false
     return
-  txt
 
-  $('.boldtrigger').click ->
-   selection = getSelText()
-   console.log 'selected value', selection
-   range = selection.getRangeAt(0)
-   if selection.toString().length > 2
-     newNode = document.createElement('span')
-     newNode.setAttribute 'class', 'selectedText'
-     range.surroundContents newNode
-   return
+  $('.prev-step').click (e) ->
+    $active = $('.wizard .nav-tabs li.active')
+    prevTab $active
+    return
+
+return
+
 
 
 

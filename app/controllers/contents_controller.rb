@@ -1,10 +1,11 @@
 class ContentsController < ApplicationController
   def index
-    @templates =  Template.all
-    @signatures = Signature.all 
-    @signatures_map  = @signatures.map{|s| ["#{s.name} <#{s.email}>", s.email] }
-    @contacts = Contact.tagged_with(params[:context]).where(status: false)
+    p @templates =  Template.all
+   p  @signatures = current_user.signatures 
+    p @signatures_map  = @signatures.map{|s| ["#{s.name} <#{s.email}>", s.email] }
+    p @contacts = current_user.contacts.tagged_with(params[:context]).where(status: false)
     if @contacts.empty?
+      p @contacts
       flash[:notice] = "no contacts left"
       redirect_to dashboard_index_path
     end
@@ -16,24 +17,24 @@ class ContentsController < ApplicationController
     @greeting	= params[:email][:greeting]
     @subject = params[:email][:subject]
     @paragraph = params[:email][:paragraph]
-    @contact = Contact.find(params[:email][:contact_id])
+    p @contact = current_user.contacts.find(params[:email][:contact_id])
     
-    @signature = Signature.find_by(email: params[:email][:signature])
+    p @signature = Signature.find_by(email: params[:email][:signature])
 
     p 
     #byebug
-    
-    SignatureMailer.test_email(@contact.id, @signature.id, @descriptions,@paragraph,@subject,@greeting)
-    #byebug
+    print "signature mail"
+    SignatureMailer.test_email(@contact.id, @signature.id, @descriptions,@paragraph,@subject,@greeting).deliver_now
+    print "delivery mails"
     @contact.update(status: true)
-    @contacts = Contact.tagged_with(params[:context]).where(status: false)
-    
-    p @contacts
+    p @contacts = current_user.contacts.tagged_with(params[:context]).where(status: false)
+    p
+     @contacts
     respond_to do |format|
       format.json { 
         #@contact = Contact.find(params[:email][:contact_id])
         #byebug
-       
+        p @contacts
         render json: {contacts: @contacts}, status: :ok
         flash[:alert] = "Email sent"
 

@@ -1,0 +1,39 @@
+
+<div class="container">
+<%= link_to "<button>Add signature</button>".html_safe, new_signature_path, :id => "button_id", :class => "button_class" %>
+<table class="table table-bordered table-striped">
+<div class="container">
+  <thead style="background-color: orange;">
+    <th>Id</th>
+    <th>Name</th>
+    <th>email</th>
+    <th>Server</th>
+    <th>Api_key</th>
+    <th>Edit</th>
+    <th>Delete</th>
+  </thead>
+
+  <tbody>
+    <% @signatures.each do |signature| %>
+      <tr>
+        <td><%= signature.id %></td>
+        <td><%= signature.name %></td>
+        <td><%= signature.email %></td>
+        <td><%= signature.smtp_mail_server %></td>
+        <td><%= signature.api_key %></td>
+        <td><%= link_to edit_signature_path(signature), class: "button" do %>
+            <i class="glyphicon glyphicon-pencil"></i>
+            <% end %>
+        </td>          
+        <td><%= link_to signature,  method: :delete, data: {confirm: "are you sure?"}, class: "button" do%> 
+          <i class="glyphicon glyphicon-trash"></i>
+            <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+  </div>
+</table>
+<div align="center">
+</div>
+</div>
