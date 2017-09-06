@@ -1,11 +1,11 @@
 class ContactsController < ApplicationController
   def index
-    p @contacts = current_user.contacts.all.paginate(page: params[:page], per_page: 10)
+    p @contacts = current_user.contacts.paginate(page: params[:page], per_page: 10)
    
   end
 
   def import
-    Contact.import(params[:file])
+    Contact.import(params[:file], current_user.id)
     redirect_to contacts_path, notice: "contacts imported."
   end
   def export

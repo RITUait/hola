@@ -4,11 +4,12 @@ class Contact < ApplicationRecord
 
   require 'csv'
 
-  def self.import(file)
+  def self.import(file,user_id)
+    user = User.find_by(id: user_id)
 
     CSV.foreach(file.path, headers: true) do |row|
       #Contact.create! row.to_hash 
-      Contact.create!(:name => row["name"], :email => row["email"], :company => row["company"], :tag_list => [row["conference"]])
+      user.contacts.create!(:name => row["name"], :email => row["email"], :company => row["company"], :tag_list => [row["conference"]])
     end
   end
 
