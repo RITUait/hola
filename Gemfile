@@ -9,13 +9,22 @@ end
 group :development do
   gem 'letter_opener_web'
 end
+gem "mail"
+gem 'tinymce-rails'
+gem 'wicked'
 gem 'easy_as_pie'
+gem 'toastr-rails'
+gem 'cancancan', '~> 2.0'
+gem 'rails_emoji_picker'
+gem 'remotipart', github: 'mshibuya/remotipart'
+gem 'rails_admin', '>= 1.0.0.rc'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.0.4'
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 0.18'
 # Use Puma as the app server
 gem 'puma', '~> 3.0'
+gem 'md_simple_editor'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
