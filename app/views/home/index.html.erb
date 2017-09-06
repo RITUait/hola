@@ -1,0 +1,76 @@
+<div class="container">
+  <div class="row">
+    <section  style="background:#efefe;">
+    <div class=" container wizard">
+      <div class="wizard-inner ">
+        <ul class="nav nav-tabs " id="myTab">
+          <li class="active">
+            <a href="#home" data-toggle="tab" title="welcome">
+            <span class="round-tabs one">
+              <i class="glyphicon glyphicon-home"></i>
+            </span> 
+            </a>
+          </li>
+          <li class="disabled">
+            <a href="#email" data-toggle="tab" title="Signature">
+              <span class="round-tabs one">
+                <i class="glyphicon glyphicon-envelope"></i> 
+              </span>
+            </a>
+            </li>
+          </li>
+          <li class="disabled">
+            <a href="#contact" data-toggle="tab" title="Contact">
+              <span class="round-tabs two">
+                <i class="glyphicon glyphicon-user"></i>
+              </span>
+           </a>
+          </li>
+          <li class="disabled">
+            <a href="#ok" data-toggle="tab" title="Completed">
+              <span class="round-tabs three">
+                <i class="glyphicon glyphicon-ok"></i>
+              </span>
+             </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    </section>
+      <div class="tab-content">
+        <div class="tab-pane fade in active" id="home">
+          <h1 class="head text-center">WELCOME TO HOLA</h1>
+            <p class="narrow text-center"> Click next to continue the process 
+             <button type="submit" class="btn btn-primary nextcontent ">Next</button>
+            </p>
+          </h1>
+        </div>
+        <div class="tab-pane fade " id="email">
+          <h3 class="head text-center">Create Signatures</h3>
+          <p class="narrow text-center" id="btn1">
+            Add signatures to send email
+            <button type="button" class="btn btn-info" id="btn1" data-toggle="collapse" data-target="#form">Add Signature</button><br></br>
+          </p>
+          <div id="form" class="collapse" style=" width: 95%;">
+            <%= render 'home/form' %><br></br>
+          </div>
+        </div>
+        <div class="tab-pane fade" id="contact">
+          <h3 class="head text-center">Create Contacts</h3>
+          <p class="narrow text-center" id="btn2">
+          Your contacts is empty,to add contacts click
+          <button type="button" class="btn btn-info" id="btn2"  data-toggle="collapse" data-target="#form2">Add Contact</button><br></br>
+          </p>
+          <div id="form2" class="collapse" style=" width: 95%;">
+            <%= render 'home/form1' %><br></br>
+          </div>
+        </div>
+        <div class="tab-pane fade" id="ok">
+          <h3 class="head text-center">Completed</h3>
+          <p class="narrow text-center">
+          <%= link_to "Click here", dashboard_index_path %> to continue  </p>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+  </div>
+</div>
