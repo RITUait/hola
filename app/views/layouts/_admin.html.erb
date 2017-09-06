@@ -1,0 +1,16 @@
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <ul class="navbar-brand" > HOLA</ul>
+      <ul class="nav navbar-nav navbar-right">
+      <% if user_signed_in? %>
+          <li><%= link_to "Signature", signatures_path %></li>
+          <li><%= link_to "Contact", contacts_path %></li>  
+          <li><%= link_to "Home", home_index_path %></li>
+          <li> <%= link_to "Sign Out", destroy_user_session_path, method: :delete %></li>
+        <% else %>  
+          <li> <%= link_to "Sign UP", new_user_registration_path%></li>
+          <li>  <%= link_to "Log IN", new_user_session_path%></li>
+        <% end %>
+            </ul>
+    </div>
+    </nav>

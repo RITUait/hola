@@ -1,0 +1,8 @@
+<%= bootstrap_form_for @signature do |f| %>
+  <%= f.text_field :name %>
+  <%= f.text_field :email %>
+  
+   <%= f.select(:smtp_mail_server, options_for_select([["sendgrid","smtp.sendgrid.net"],["postmark","smtp.postmarkapp.com"]])) %>
+  <%= f.text_field :api_key %>
+  <%= f.submit "save",id: "next-step" %>
+<% end %>
