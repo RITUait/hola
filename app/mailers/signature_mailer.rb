@@ -7,7 +7,6 @@ class SignatureMailer < ApplicationMailer
     @contact = Contact.find(contact_id)
     @signature = Signature.find(signature_id)
     print "delivered"
-     byebug
     if (@signature.smtp_mail_server =="smtp.sendgrid.net") then
 
     options = {
