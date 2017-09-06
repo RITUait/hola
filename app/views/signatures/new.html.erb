@@ -5,7 +5,6 @@
   
    <%= f.select(:smtp_mail_server, options_for_select(['smtp.sendgrid.net','smtp.postmarkapp.com'])) %>
   <%= f.text_field :api_key %>
-  <%= f.text_field :domain %>
   <%= f.submit "save" %>
 <% end %>
 
