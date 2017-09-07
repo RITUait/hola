@@ -1,6 +1,6 @@
 class TemplatesController < ApplicationController
   def index
-    @templates = Template.all
+    @templates = current_user.templates
     @contact = Contact.tagged_with(params[:flag]).where(status: false).first
   end
   def new
@@ -8,7 +8,9 @@ class TemplatesController < ApplicationController
   end
 
   def create
+    @templates = current_user.templates
     @template = Template.new(template_params)
+    @template.user_id = current_user.id
     @contact = Contact.where(status: false).first
     @signature = Signature.find_by(name: @template.category)
     @template.save
@@ -28,7 +30,7 @@ class TemplatesController < ApplicationController
   end
 
   def show
-    @template = Template.find(params[:id])
+    @template = current_user.templates.find(params[:id])
     respond_to do |format|
       format.json { render json: {"description" => @template.description}}
       #format.js { render layout: false, content_type: 'text/javascript'}
@@ -43,6 +45,6 @@ class TemplatesController < ApplicationController
 
   private
   def template_params
-    params.require(:template).permit(:title, :category, :paragraph, :description,:api_key)
+    params.require(:template).permit(:title, :category, :paragraph, :description,:api_key,:user_id)
   end
 end

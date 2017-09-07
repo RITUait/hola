@@ -1,7 +1,7 @@
 class ContentsController < ApplicationController
   def index
-    p @templates =  Template.all
-   p  @signatures = current_user.signatures 
+    p @templates =  current_user.templates
+    p @signatures = current_user.signatures 
     p @signatures_map  = @signatures.map{|s| ["#{s.name} <#{s.email}>", s.email] }
     p @contacts = current_user.contacts.tagged_with(params[:context]).where(status: false)
     if @contacts.empty?
@@ -28,7 +28,7 @@ class ContentsController < ApplicationController
     print "delivery mails"
     @contact.update(status: true)
     p @contacts = current_user.contacts.tagged_with(params[:context]).where(status: false)
-    p
+      flash[:alert] = "Email sent"
      @contacts
     respond_to do |format|
       format.json { 
@@ -36,7 +36,7 @@ class ContentsController < ApplicationController
         #byebug
         p @contacts
         render json: {contacts: @contacts}, status: :ok
-        flash[:alert] = "Email sent"
+        
 
         #redirect_to (contents_path(:context => @contact.tag_list))             
       }

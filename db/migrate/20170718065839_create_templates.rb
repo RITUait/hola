@@ -6,6 +6,7 @@ class CreateTemplates < ActiveRecord::Migration[5.0]
       t.string :paragraph
       t.string :title
       t.string :description
+      t.belongs_to :user, index: true
       t.timestamps
     end
   end
