@@ -15,6 +15,7 @@ class SignatureMailer < ApplicationMailer
       :port => '587',
       :password => @signature.api_key,
       :authentication => 'plain',
+      :domain => "joshsoftware.com",
       :enable_starttls_auto => true
 
     }
@@ -25,6 +26,7 @@ class SignatureMailer < ApplicationMailer
       :port => '587',
       :password => @signature.api_key,
       :authentication => 'plain',
+      :domain => "simplysmart.tech",
       :enable_starttls_auto => true
     }
   end
@@ -39,7 +41,7 @@ class SignatureMailer < ApplicationMailer
     @paragraph = paragraph
     @signature = Signature.find(signature_id)
      #byebug
-    if (@signature.domain=="joshsoftware.com") then
+    if (@signature.smtp_mail_server =="smtp.sendgrid.net") then
     options = {
       :user_name => 'apikey',
       :address => @signature.smtp_mail_server,
