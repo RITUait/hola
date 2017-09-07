@@ -9,16 +9,9 @@
     
   </head>
 
-
-
   <body>
-  
     <% if user_signed_in? %>
-       <% if (current_user.admin == false) %>
-        <%= render "layouts/header" %>
-        <% else %>
-        <%= render "layouts/admin" %>
-      <% end %>
+      <%= render "layouts/header" %>
     <% end %>
     <div class="container">
       <%= yield %>
