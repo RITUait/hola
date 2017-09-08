@@ -4,6 +4,7 @@
 
 jQuery ->
   $("#email_greeting").val("Dear " + $("#contact_name").text())
+
   index = 1
   $("#add_textarea").click ->
     $("#template_description").after("<textarea as='text' class='form-control added' name='template[description][#{index}]' id='template_description'></textarea>")
@@ -28,8 +29,6 @@ jQuery ->
     $active.next().removeClass 'disabled'
     nextTab $active
     return
-
-  
   
 
   $("#next").click ->
@@ -45,10 +44,7 @@ jQuery ->
     return
 
   $("#prev").click ->
-    if(contact[i] == 0)
-      $("#prev").hide()
-    else
-    i--
+    i--   
     $("#contact_name").html(contacts[i].name)
     $("#contact_email").html(contacts[i].email)
     $("#contact_company").html(contacts[i].company)
@@ -77,11 +73,9 @@ jQuery ->
     alert 'Do you want send test mail.'
     $('#form').attr('action','/self_email')
     $('#form').submit()
+    alert 'Mail sent.'
     return
 
-  
-
-  
   $("#send").click (e) ->
     e.preventDefault()
 
@@ -118,6 +112,7 @@ jQuery ->
           window.location.href = "/"
         else
           console.log(contact[0])
+          alert 'Email sent.'
           $("#contact_name").text(contact[0].name)
           $("#contact_email").text(contact[0].email)
           $("#contact_company").text(contact[0].company)
