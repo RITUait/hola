@@ -21,12 +21,13 @@ class ContactsController < ApplicationController
     p @contact.user_id = current_user.id
     p @contacts = current_user.contacts
     p tag = @contact.tag_list
-    p contact = Contact.find_or_create_by(email: @contact.email)
-    if contact.persisted?
-      contact.tag_list.add(tag)
-      contact.save
-      redirect_to contacts_path
-    else
+    p email = @contact.email
+    p contact = @contacts.where(email: email).first
+    if contact
+        contact.tag_list.add(tag)
+        contact.save
+        redirect_to contacts_path
+      else
       @contact.save
       redirect_to contacts_path
     end
