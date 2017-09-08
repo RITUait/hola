@@ -25,16 +25,8 @@ class HomeController < ApplicationController
     @contacts = current_user.contacts   
     @contact = Contact.new(contact_params)
     p @contact.user_id = current_user.id
-    p @contacts = current_user.contacts
-    p tag = @contact.tag_list
-    p email = @contact.email
-    p c = @contacts.find_by(email: email)
-    if(c.email == email)
-         c.tag_list.add(tag)
-          c.save
-    else
       @contact.save
-      end
+    
 
   end
 
