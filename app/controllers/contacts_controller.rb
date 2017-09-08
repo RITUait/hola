@@ -21,15 +21,15 @@ class ContactsController < ApplicationController
     p @contact.user_id = current_user.id
     p @contacts = current_user.contacts
     p tag = @contact.tag_list
-    p email = @contact.email
-    p c = @contacts.find_by(email: email)
-    if(c.email == email)
-         c.tag_list.add(tag)
-          c.save
-        redirect_to contacts_path
+    p contact = Contact.find_or_create_by(email: @contact.email)
+    if contact.persisted?
+      contact.tag_list.add(tag)
+      contact.save
+      redirect_to contacts_path
     else
       @contact.save
-      end
+      redirect_to contacts_path
+    end
   end
   def edit
     @contact = Contact.find(params[:id])
