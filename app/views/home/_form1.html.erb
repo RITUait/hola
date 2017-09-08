@@ -2,10 +2,7 @@
 	<div class = "col-sm-4">
  		<div class = "well">
 			<%= bootstrap_form_for :contact,html: { id: "form_2" },url: contact_register_path,remote: true do |f| %>
-				<%= f.text_field :name,:required => true  %>
-				<%= f.email_field :email,type:"email",:required => true  %>
-				<%= f.text_field :company,:required => true  %>
-				<%= f.text_field :tag_list,:required => true ,placeholder: 'Enter the conference name'%>
+				<%= render "contacts/form", f: f %>
 	 			<button type="submit" class="btn btn-primary next-step1">Save and continue</button>
 			<% end %>
 		</div>

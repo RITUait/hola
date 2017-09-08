@@ -1,32 +1,62 @@
-<div class="col-sm-12">
-  <%= form_tag import_contacts_path, multipart: true do %>
-    <div class="col-sm-3">
-      <%= file_field_tag :file %>
+<div class="container">
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      
     </div>
-    <div class="col-sm-3">
-      <%= submit_tag "Import CSV" %>
-    </div>
-    <div class="col-sm-3">
-    <%= link_to "Download sample CSV", "/contact.csv"%>
-    </div>
-  <% end %>
-  <div class="col-sm-3">
-   <%= link_to "<button>Add a contact</button>".html_safe, new_contact_path, :id => "button_id", :class => "button_class" %>
-    </div>
-</div><br>
+    <ul class="nav navbar-nav">
+      <li><a id="browse" data-toggle="collapse" data-target="#demo">Browse/Download</a></li>
+      <li><%= link_to "Add contact", new_contact_path %></li>
+    </ul>
+  
 
 
+<%= form_tag import_contacts_path, multipart: true do %>
+  <div id="demo" class="collapse col-sm-12">
+  <table class="table table-striped">
+  <tbody>
+  <tr>
+  <td>
+    <b><h1 style="font-size:18px;">Browse & Import </h1></b>
+    <div class="col-sm-4">
+      <%= file_field_tag :file %></span>
+      <i>(supports only CSV files)</i>
+    <div><br>
+    
+    <div>
+    <%= submit_tag "Import CSV" %><br>
+    </div>
+    </td>
+
+    </div>
+    </div>
+    <td>   
+    <div class="col-sm-4">
+      <b><h1 style="font-size:18px;">Download </h1></b><br>
+      <%= link_to "Download sample CSV", "/contact.csv", class: "btn btn-sm btn-primary" %>
+    </div>
+    </td>
+    
+    </tr>
+    </tbody>
+    </table>
+    </div>
+<% end %>
+</div>
+</nav>
 <br><br>
-<table class="table table-bordered table-striped">
+
+<table class="table table-bordered table-striped active">
+  <thead style="background-color: orange;" text-align="center">
   <th>Id</th>
   <th>Name</th>
-  <th>email</th>
-  <th>company</th>
-  <th>conference</th>
-  <th>Status</th>
+  <th>Email</th>
+  <th>Company</th>
+  <th>Conference</th>
+  <th>Email status</th>
   <th> Edit </th>
   <th> Delete </th>
-
+  </thead>
   <tbody>
     <% @contacts.each do |contact| %>
       <tr >
@@ -50,6 +80,8 @@
 
   </tbody>
 </table>
+</div>
+</div>
 <div align="center">
   <%= will_paginate @contacts%>
 </div>

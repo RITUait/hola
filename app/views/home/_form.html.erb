@@ -2,10 +2,7 @@
  <div class = "col-sm-4">
  <div class = "well">
 	<%= bootstrap_form_for :signature,html: { id: "form_1" }, remote: true do |f| %>
-		<%= f.text_field :name,:required => true  %>
-  	<%= f.email_field :email,type:"email", :required => true %>
-    <%= f.select(:smtp_mail_server, options_for_select([["sendgrid","smtp.sendgrid.net"],["postmark","smtp.postmarkapp.com"]])) %>
-  	<%= f.text_field :api_key,:required => true %>
+		<%= render "signatures/form", f: f %>
   	<button type="submit" class="btn btn-primary next-step">Save and continue</button>
   <% end %>
   </div>

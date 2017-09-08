@@ -1,14 +1,15 @@
 
 <div class="container">
-<%= link_to "<button>Add signature</button>".html_safe, new_signature_path, :id => "button_id", :class => "button_class" %>
+<%= link_to "<button>Add signature</button>".html_safe, new_signature_path, :id => "button_id", :class => "button pull-right" %>
+<br></br>
 <table class="table table-bordered table-striped">
 <div class="container">
-  <thead style="background-color: orange;">
+  <thead style="background-color: orange;" text-align="center">
     <th>Id</th>
     <th>Name</th>
-    <th>email</th>
+    <th>Email</th>
     <th>Server</th>
-    <th>Api_key</th>
+    <th>Apikey</th>
     <th>Edit</th>
     <th>Delete</th>
   </thead>
@@ -25,7 +26,7 @@
             <i class="glyphicon glyphicon-pencil"></i>
             <% end %>
         </td>          
-        <td><%= link_to signature,  method: :delete, data: {confirm: "are you sure?"}, class: "button" do%> 
+        <td><%= link_to signature,  method: :delete, data: {confirm: "are you sure?"}, class: "button " do%> 
           <i class="glyphicon glyphicon-trash"></i>
             <% end %>
         </td>
@@ -35,5 +36,6 @@
   </div>
 </table>
 <div align="center">
+  
 </div>
 </div>
