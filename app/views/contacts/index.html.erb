@@ -66,7 +66,11 @@
         <td><%= contact.company %></td>
         <p>
         <td><%= contact.tag_list  %></td></p>
-        <td><%= contact.status %></td>
+        <% if(contact.status == false) %>
+        <td>Not sent</td>
+        <% else %>
+        <td>Sent</td>
+        <% end%>
           <td><%= link_to edit_contact_path(contact), class: "button" do %>
             <i class="glyphicon glyphicon-pencil"></i>
             <% end %>
