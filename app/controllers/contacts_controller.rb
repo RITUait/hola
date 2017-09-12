@@ -6,8 +6,13 @@ class ContactsController < ApplicationController
   end
 
   def import
-    Contact.import(params[:file], current_user.id)
-    redirect_to contacts_path, notice: "contacts imported."
+  p @errors = Contact.import(params[:file], current_user.id)
+    @contacts = current_user.contacts.paginate(page: params[:page], per_page: 10)
+  if @errors.present? 
+     render :index
+    else
+     redirect_to contacts_path, notice: "contacts imported."
+  end
   end
 
   def new

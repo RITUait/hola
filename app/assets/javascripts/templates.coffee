@@ -4,6 +4,12 @@
 
 jQuery ->
   $("#email_greeting").val("Dear " + $("#contact_name").text())
+  console.log(contacts[i])
+  if(contacts.length is 1)
+    console.log("test")
+    $("#next").hide()
+    $("#prev").hide()
+
 
   index = 1
   $("#add_textarea").click ->
@@ -34,7 +40,7 @@ jQuery ->
   $("#next").click ->
     i++
     #document.getElementById("next").innerHTML = contacts[i];
-    console.log(contact)
+    console.log(contacts)
     contact = $("#next").val()
     $("#contact_name").html(contacts[i].name)
     $("#contact_email").html(contacts[i].email)
@@ -44,7 +50,8 @@ jQuery ->
     return
 
   $("#prev").click ->
-    i--   
+    i-- 
+    console.log(i)
     $("#contact_name").html(contacts[i].name)
     $("#contact_email").html(contacts[i].email)
     $("#contact_company").html(contacts[i].company)
@@ -76,9 +83,10 @@ jQuery ->
     alert 'Mail sent.'
     return
 
-  $("#send").click (e) ->
+  $(document).on "submit", "#send", (e)->
     e.preventDefault()
-
+    if $('#email_subject').val() == ''
+      alert 'Please complete the field'
     subject = $("#email_subject").val()
     greeting = $("#email_greeting").val()
     contact_id = $("#email_contact_id").val()
@@ -87,6 +95,7 @@ jQuery ->
     signature = $("#email_signature").val()
     context = $("#email_tag").val()
     data = []
+    
     for i in [0..$(".description").length-1]
       arr1 = $($(".description")[i]).val().split("\n")
       for j in [0..arr1.length - 1]

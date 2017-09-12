@@ -27,19 +27,20 @@ jQuery ->
     #return
     description = $(this).parent().find("textarea").val()
     console.log("#{description}")
-    $("#myModal").val(description)
-    console.log(description)
-
-    $("#myModal").modal()
+    if("#{description}")
+      $("#myModal").val(description)
+      console.log(description)
+      $("#myModal").modal()
+    else
+      alert "the field is empty"
     return 
 
   
 
-  $("#modal_submit").click  ->
-
+  $(document).on "submit", "#modal_form", (e)  ->
+    e.preventDefault()
     heading = $("#Heading").val()
     ans = $("#myModal").val()
-
     $('.templates').append("<option>#{heading}</option>")
     $.ajax({
       url: "/templates",
@@ -47,6 +48,9 @@ jQuery ->
       type: "post",
       dataType: "script"
     })
+    $("#myModal").modal('hide')
+    #.done(function($("#myModal").modal("hide")))
+
     #$.post("/templates",{template:{title:"#{heading}",description:"#{ans}"}})
     return
 
@@ -65,6 +69,7 @@ jQuery ->
         obj.val(data["description"])
 
     return
+
 
   nextTab = (elem) ->
     $(elem).next().find('a[data-toggle="tab"]').click()
@@ -89,6 +94,9 @@ jQuery ->
   $('#btn2').click ->
     $('#btn2').hide()
     return
+
+
+
   
   $('#form_1').submit (e) ->
     $active = $('.wizard .nav-tabs li.active')

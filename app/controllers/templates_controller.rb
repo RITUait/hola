@@ -9,8 +9,9 @@ class TemplatesController < ApplicationController
 
   def create
     @templates = current_user.templates
-    @template = Template.new(template_params)
+    p @template = Template.new(template_params)
     @template.user_id = current_user.id
+    p @template
     @contact = Contact.where(status: false).first
     @signature = Signature.find_by(name: @template.category)
     @template.save
