@@ -1,5 +1,5 @@
 <div class="container">
-<nav class="navbar navbar-inverse">
+<nav class="navbar navbar-default">
   <div class="container-fluid">
     <div class="navbar-header">
       
@@ -13,7 +13,6 @@
     </ul>
   
 
-
 <%= form_tag import_contacts_path, multipart: true do %>
   <div id="demo" class="collapse col-sm-12">
   <table class="table ">
@@ -22,12 +21,14 @@
   <td>
     <b><h1 style="font-size:18px;">Browse & Import </h1></b>
     <div class="col-sm-4">
-      <%= file_field_tag :file %></span>
+      <%= file_field_tag :file ,accept: 'text/csv'%></span>
       <i>(supports only csv files)</i>
     <div><br>
     
     <div>
     <%= submit_tag "Import CSV" %><br>
+    
+
     </div>
     </td>
 
@@ -45,8 +46,16 @@
     </table>
     </div>
 <% end %>
+<% if @errors %>
+  <% @errors.each do |message| %><br>
+    <%= message %>
+    <% end %>
+    <% end %>
 </div>
 </nav>
+
+
+
 <br><br>
 
 <table class="table table-bordered table-striped active">
@@ -70,9 +79,9 @@
         <p>
         <td><%= contact.tag_list  %></td></p>
         <% if(contact.status == false) %>
-        <td>Not sent</td>
+        <td style="color: red;">Not sent</td>
         <% else %>
-        <td>Sent</td>
+        <td style="color: green;>Sent</td>
         <% end%>
           <td><%= link_to edit_contact_path(contact), class: "button" do %>
             <i class="glyphicon glyphicon-pencil"></i>

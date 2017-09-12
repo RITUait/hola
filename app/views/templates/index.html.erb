@@ -1,4 +1,8 @@
-
-
-
-
+<table>
+<%@templates.each do |template| %>
+<tr>
+	<td><%= template.title %></td>
+	<td><%= template.description %></td>
+	</tr>
+<% end %>
+</table>

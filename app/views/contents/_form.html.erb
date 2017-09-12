@@ -11,18 +11,19 @@
           <h4><span class="glyphicon glyphicon-lock"></span>Enter Heading</h4>
         </div>
         <div class="modal-body">
-          <form role="form">
+          <form id= "modal_form" role="form"  data-validate="true">
             <div class="form-group">
               <label for="Heading"><span class="glyphicon glyphicon-pencil"></span> Heading</label>
-              <input type="text" class="form-control" id="Heading" placeholder="Enter Heading For Your Text and click SUBMIT button....">
+              <input type="text" required = true class="form-control" id="Heading"  placeholder="Enter Heading For Your Text and click SUBMIT button....">
             </div>
 
-            <button type="button" class="btn btn-success btn-block" id="modal_submit" data-dismiss="modal"><span class="glyphicon glyphicon-off"></span> Submit</button>
-          </form>
+            <button type="submit" class="btn btn-success btn-block" id="modal_submit"><span class="glyphicon glyphicon-off"></span> Submit</button>
+          
         </div>
         <div class="modal-footer">
           <button type="submit" class="btn btn-danger btn-default pull-left"  data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
         </div>
+        </form>
       </div>
 
     </div>
