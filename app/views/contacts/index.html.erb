@@ -28,7 +28,6 @@
     <div>
     <%= submit_tag "Import CSV" %><br>
     
-
     </div>
     </td>
 
@@ -46,18 +45,18 @@
     </table>
     </div>
 <% end %>
-<% if @errors %>
-  <% @errors.each do |message| %><br>
-    <%= message %>
-    <% end %>
-    <% end %>
+
 </div>
 </nav>
-
-
-
 <br><br>
-
+<% if @errors %>
+    <div class="alert alert-info alert-dismissable">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <% @errors.each do |message| %><br>
+    <%= message %>
+    <% end %>
+    </div>
+    <% end %>
 <table class="table table-bordered table-striped active">
   <thead style="background-color: orange;" text-align="center">
   <th>Id</th>
@@ -81,7 +80,7 @@
         <% if(contact.status == false) %>
         <td style="color: red;">Not sent</td>
         <% else %>
-        <td style="color: green;>Sent</td>
+        <td style="color: green;">Sent</td>
         <% end%>
           <td><%= link_to edit_contact_path(contact), class: "button" do %>
             <i class="glyphicon glyphicon-pencil"></i>

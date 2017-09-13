@@ -1,1 +1,1 @@
-<%= select_tag :template,options_for_select(@templates.collect{|u| [u.title,u.id]}) , class:"form-select templates" %>
+<%= select_tag :template,options_for_select(@templates.collect{|u| [u.title,u.id]}) , class:"form-select templates", :include_blank => true%>

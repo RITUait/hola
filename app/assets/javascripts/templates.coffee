@@ -4,10 +4,13 @@
 
 jQuery ->
   $("#email_greeting").val("Dear " + $("#contact_name").text())
-  console.log(contacts[i])
+  console.log(contacts.length)
   if(contacts.length is 1)
     console.log("test")
+    $("#prev").hide()
     $("#next").hide()
+  if(i is 0)
+    console.log("test")
     $("#prev").hide()
 
 
@@ -39,6 +42,7 @@ jQuery ->
 
   $("#next").click ->
     i++
+    console.log(i)
     #document.getElementById("next").innerHTML = contacts[i];
     console.log(contacts)
     contact = $("#next").val()
@@ -47,6 +51,12 @@ jQuery ->
     $("#contact_company").html(contacts[i].company)
     $("#email_contact_id").val(contacts[i].id)
     $("#email_greeting").val("Dear"+"" + $("#contact_name").text())
+    if(i > 0)
+      console.log("test")
+      $("#prev").show()
+    if((contacts.length) - 1)
+      console.log("test")
+      $("#next").hide()
     return
 
   $("#prev").click ->
@@ -57,6 +67,10 @@ jQuery ->
     $("#contact_company").html(contacts[i].company)
     $("#email_contact_id").val(contacts[i].id)
     $("#email_greeting").val("Dear"+"" + $("#contact_name").text())
+    if(i is 0)
+      console.log("test")
+      $("#next").show()
+      $("#prev").hide()
     return
   $("#preview").click ->
     $('#myModal1').find('.signature_email').text($("#email_Add_signature"))
@@ -83,7 +97,7 @@ jQuery ->
     alert 'Mail sent.'
     return
 
-  $(document).on "submit", "#send", (e)->
+  $(document).on "submit", "#form", (e)->
     e.preventDefault()
     if $('#email_subject').val() == ''
       alert 'Please complete the field'
@@ -99,7 +113,7 @@ jQuery ->
     for i in [0..$(".description").length-1]
       arr1 = $($(".description")[i]).val().split("\n")
       for j in [0..arr1.length - 1]
-        data.push(arr1[j] )
+        data.push(arr1[j] + "\n" )
 
     $.ajax ({
       url:"/send_email"

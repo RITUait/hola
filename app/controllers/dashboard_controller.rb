@@ -8,6 +8,9 @@ class DashboardController < ApplicationController
     p @contacts = current_user.contacts
     @signatures = current_user.signatures
     @c = []
+    if (@contacts.empty?) && (@signatures.empty?)
+      redirect_to home_index_path
+    end
   end
 
 end
