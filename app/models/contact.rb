@@ -7,6 +7,7 @@ class Contact < ApplicationRecord
   def self.import(file,user_id)
     #user = User.find_by(id: user_id)
     p @errors = []
+    p file
     CSV.foreach(file.path, headers: true).with_index  do |row,i|
       i += 1
       p contact = Contact.find_or_create_by(email: row['email'], user_id: user_id)
@@ -21,6 +22,7 @@ class Contact < ApplicationRecord
         if contact.save
 
         else
+
           contact.errors.full_messages.each do |message|
             p row = [row["name"], row["email"], row["company"], row["conference"], message]
             message = []
@@ -30,10 +32,19 @@ class Contact < ApplicationRecord
         end
       end
     end
-    @errors
-  end
-  def self.to_csv
 
+    p @errors
+    if @errors.present?
+      attributes = %w{Name Email Company Conference}
+      CSV.open(Rails.root.join('public', "file.csv"),"wb") do |csv|
+        csv << attributes
+        @errors.each do |message|
+          csv << message 
+        end
+
+      end
+
+    end
   end
   validates :email,:name,:company,:tag_list,presence: true
 end

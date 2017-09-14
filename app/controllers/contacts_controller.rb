@@ -3,33 +3,41 @@ class ContactsController < ApplicationController
   def index
     p @contacts = current_user.contacts.paginate(page: params[:page], per_page: 10)
 
-   
+
   end
 
   def import
-   @errors = Contact.import(params[:file], current_user.id)
-    @contacts = current_user.contacts.paginate(page: params[:page], per_page: 10)
-  if @errors.present? 
-     #render :index
-     export
-     
+    @errors = Contact.import(params[:file], current_user.id)
+     @contacts = current_user.contacts.paginate(page: params[:page], per_page: 10)
+    p @errors.present?
+    if @errors.present?  
+      flash.now[:alert] = "CSV contains some errors"
+      render :index
     else
-     redirect_to contacts_path, notice: "contacts imported."
+      redirect_to contacts_path, notice: "contacts imported."
+    end
+
   end
   
-  end
-
   def export
     attributes = %w{Name Email Company Conference}
-    error = %w{firt pavi@gmail.com cyui ftrrt }
-    @download = CSV.generate(headers: true) do |csv|
-      csv << attributes
-      @errors.each do |message|
-        csv << message 
+    #error = %w{firt pavi@gmail.com cyui ftrrt }
+    #@contacts = current_user.contacts.paginate(page: params[:page], per_page: 10)
+    p @errors
+    if @errors
+      @download = CSV.generate(headers: true) do |csv|
+        csv << attributes
+        @errors.each do |message|
+          csv << message 
+        end
       end
     end
-    send_data @download, filename: "contacts.csv" 
+
+    p @download
+    send_data @download,type: "text/csv",filename: "contacts.csv"
+ 
   end
+
 
   def new
     @contact = Contact.new
@@ -70,7 +78,7 @@ class ContactsController < ApplicationController
   end
 
   def contact_params
-  	params.require(:contact).permit(:name,:email,:company,:conference,:tag_list,:user_id)
+    params.require(:contact).permit(:name,:email,:company,:conference,:tag_list,:user_id)
   end
 
 end
