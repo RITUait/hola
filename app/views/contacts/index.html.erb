@@ -1,3 +1,4 @@
+
 <div class="container">
 <nav class="navbar navbar-default">
   <div class="container-fluid">
@@ -26,7 +27,8 @@
     <div><br>
     
     <div>
-    <%= submit_tag "Import CSV" %><br>
+    <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+    <%= submit_tag "Import CSV" , remote: true%><br>
     
     </div>
     </td>
@@ -52,9 +54,8 @@
 <% if @errors %>
     <div class="alert alert-info alert-dismissable">
     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-    <% @errors.each do |message| %><br>
-    <%= message %>
-    <% end %>
+    <p> Your contacts imported has error 
+    <%= link_to "CLICK HERE","/file.csv" %> to download this file with errors</p>
     </div>
     <% end %>
 <table class="table table-bordered table-striped active">
