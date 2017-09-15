@@ -103,7 +103,7 @@ jQuery ->
       #$('#form').attr('action','/send_email')
     return
 
-  $("#send").on "submit", (e)->
+  $("#send").on "click", (e)->
     e.preventDefault()
     subject = $("#email_subject").val()
     greeting = $("#email_greeting").val()
