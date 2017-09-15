@@ -150,6 +150,7 @@ li.active span.round-tabs.five{
  }
 .nav-tabs > li {
   width: 20%;
+  border-bottom-color: #fff;
  }
 /*li.active:before {
   content: " ";
@@ -163,6 +164,11 @@ li.active span.round-tabs.five{
   z-index: 1;
   transition:0.2s ease-in-out;
  }*/
+ .nav-tabs {
+  
+  border-bottom-color: #fff;
+  
+  }
 .nav-tabs > li:after {
   content: " ";
   position: absolute;
@@ -171,7 +177,7 @@ li.active span.round-tabs.five{
   margin: 0 auto;
   bottom: 0px;
   border: 5px solid transparent;
-  border-bottom-color: #ddd;
+  border-bottom-color: #fff;
   transition:0.1s ease-in-out;
   }
 .nav-tabs > li.active:after {
@@ -182,7 +188,7 @@ li.active span.round-tabs.five{
   margin: 0 auto;
   bottom: 0px;
   border: 10px solid transparent;
-  border-bottom-color: #ffff;
+  border-bottom-color: #ddd;
   }
 .nav-tabs > li a{
   width: 70px;
