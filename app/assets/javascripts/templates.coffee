@@ -88,19 +88,23 @@ jQuery ->
      $("#myModal1").modal()
      return
 
-  $("#test_mail").click (e) ->
+  $("#test_mail").on 'click', (e) ->
     e.preventDefault()
-
-    alert 'Do you want send test mail.'
-    $('#form').attr('action','/self_email')
-    $('#form').submit()
-    alert 'Mail sent.'
+    textBox = $("#email_subject").val()
+    textBox1 = $("#description").val()
+    if textBox == ''
+      alert 'error'
+    else
+      
+      alert 'Do you want send test mail.'
+      $('#form').attr('action', '/self_email')
+      $('#form').submit()
+      alert 'Mail sent.'
+      #$('#form').attr('action','/send_email')
     return
 
-  $(document).on "submit", "#form", (e)->
+  $("#send").on "submit", (e)->
     e.preventDefault()
-    if $('#email_subject').val() == ''
-      alert 'Please complete the field'
     subject = $("#email_subject").val()
     greeting = $("#email_greeting").val()
     contact_id = $("#email_contact_id").val()

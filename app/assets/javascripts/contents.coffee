@@ -7,16 +7,18 @@
 jQuery ->
   index = 0
   $("#add_textarea").click ->
-     # console.log('old index: ', index)
-     index = index + 1
-     t = $(".row:first").html()
-     $(".contents").append("<div class='row' id='temp#{index}'>" + t+ "</div>")
-     return
+    # console.log('old index: ', index)
+    index = index + 1
+    $("#remove").show()
+    t = $(".row:first-child").html()
+    $(".contents").append("<div class='row' id='temp#{index}'>" + t+ "</div>")
+    
+    return
 
   $(document).on 'click', '#remove', ->
-    alert 'do you want to remove'
-    $($(this).parent()).parent().remove()
-    index--
+    if(index > 1)
+      $($(this).parent()).parent().remove()
+      index--
     return
 
 
@@ -128,6 +130,17 @@ jQuery ->
     prevTab $active
     return
 
+
+  $('.multi-field-wrapper').each ->
+  $wrapper = $('.multi-fields', this)
+  $('.add-field', $(this)).click (e) ->
+    $('.multi-field:first-child', $wrapper).clone(true).appendTo($wrapper).find('input').val('').focus()
+    return
+  $('.multi-field .remove-field', $wrapper).click ->
+    if $('.multi-field', $wrapper).length > 1
+      $(this).parent('.multi-field').remove()
+    return
+  return
 return
 
 

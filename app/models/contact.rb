@@ -46,7 +46,8 @@ class Contact < ApplicationRecord
 
     end
   end
-  validates :email,:name,:company,:tag_list,presence: true
+  validates :name,:company,:tag_list,presence: true
+  validates_format_of :email,:with => /\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/
 end
 
 
