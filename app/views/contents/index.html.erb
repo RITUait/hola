@@ -23,7 +23,7 @@
       <button id="next">next</button>
     </div>
   </div>
-  <p id="notice"><%= notice %></p>
+  
   <div class="card card-stats container" >
     <%= bootstrap_form_for :email, html: { id: "form" }, url: send_email_path, remote: true do |f| %>
       <div class="col-md-12" class="card-header"><br>
@@ -31,20 +31,21 @@
         <%= f.text_area :greeting ,value: @contacts[0].name %>
         <%= f.hidden_field :tag ,value: @contacts.tag_counts.first.name%>
         <%= f.hidden_field :contact_id, value: @contacts[0].id  %>
-      </div><br>
-      <div class="col-md-10"  align="left">
-        <button type="button" class="btn btn-success" id="add_textarea" >Add paragraph</button>
-      </div>       
+        
+      </div>
+       <div class="col-md-10 textarea" >
+        <button type="button" class="btn btn-success" id="add_textarea" >Add paragraph</button><br>
+      </div>
       <div class="contents" >
         <div class="row" id="temp0" >
-          <div class="col-md-8" class="card-content"><br>
+          <div class="col-md-8" class="card-content">
             <%= text_area_tag "description[]","",  class: "form-control description sig-description",:required => true,placeholder: "Select a template from..." %>
         <%= link_to 'Save as template', "javascript:void(0)", class: 'save_as_template pull-right' %> 
           </div>  
-          <div class="col-md-2 templates-dropdown"><br>
+          <div class="col-md-2 templates-dropdown">
             <%= render 'templates/select_templates' %>
           </div>
-          <div class="col-md-2 "><br>
+          <div class="col-md-2 ">
             <button type="button" class="btn btn-danger" id="remove">Remove</button>
           </div>
         </div>
