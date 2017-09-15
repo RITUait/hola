@@ -91,17 +91,34 @@ jQuery ->
   $("#test_mail").on 'click', (e) ->
     e.preventDefault()
     textBox = $("#email_subject").val()
-    textBox1 = $("#description").val()
-    if textBox == ''
+    textBox1 = $(".description").val()
+    if ((textBox == '')||(textBox1 == ''))
       alert 'error'
     else
       
-      alert 'Do you want send test mail.'
-      $('#form').attr('action', '/self_email')
-      $('#form').submit()
-      alert 'Mail sent.'
-      #$('#form').attr('action','/send_email')
-    return
+      subject = $("#email_subject").val()
+      greeting = $("#email_greeting").val()
+      contact_id = $("#email_contact_id").val()
+      console.log(contact_id+ "888888888")
+      console.log(contacts)
+      signature = $("#email_signature").val()
+      context = $("#email_tag").val()
+      data = []
+    
+      for i in [0..$(".description").length-1]
+        arr1 = $($(".description")[i]).val().split("\n")
+        for j in [0..arr1.length - 1]
+          data.push(arr1[j] + "\n" )
+
+      $.ajax ({
+        url:"/self_email"
+        data: {email: {subject:"#{subject}",greeting: "#{greeting}",contact_id:"#{contact_id}",signature: "#{signature}"},context: "#{context}",description: data },
+        type: "post",
+        dataType: "json",
+        success: (data) ->
+      })
+      alert "email sent"
+      return
 
   $("#send").on "click", (e)->
     e.preventDefault()
