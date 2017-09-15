@@ -8,7 +8,7 @@ jQuery ->
   index = 0
   $("#add_textarea").click ->
     # console.log('old index: ', index)
-    index = index + 1
+    index++
     $("#remove").show()
     t = $(".row:first-child").html()
     $(".contents").append("<div class='row' id='temp#{index}'>" + t+ "</div>")
@@ -16,7 +16,7 @@ jQuery ->
     return
 
   $(document).on 'click', '#remove', ->
-    if(index > 1)
+    if(index > 0)
       $($(this).parent()).parent().remove()
       index--
     return
