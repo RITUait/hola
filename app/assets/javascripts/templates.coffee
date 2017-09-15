@@ -93,7 +93,7 @@ jQuery ->
     textBox = $("#email_subject").val()
     textBox1 = $(".description").val()
     if ((textBox == '')||(textBox1 == ''))
-      alert 'error'
+      alert 'your text field is empty'
     else
       
       subject = $("#email_subject").val()
@@ -122,54 +122,60 @@ jQuery ->
 
   $("#send").on "click", (e)->
     e.preventDefault()
-    subject = $("#email_subject").val()
-    greeting = $("#email_greeting").val()
-    contact_id = $("#email_contact_id").val()
-    console.log(contact_id+ "888888888")
-    console.log(contacts)
-    signature = $("#email_signature").val()
-    context = $("#email_tag").val()
-    data = []
+    textBox = $("#email_subject").val()
+    textBox1 = $(".description").val()
+    if ((textBox == '')||(textBox1 == ''))
+      alert 'your text field is empty'
+    else
+      subject = $("#email_subject").val()
+      greeting = $("#email_greeting").val()
+      contact_id = $("#email_contact_id").val()
+      console.log(contact_id+ "888888888")
+      console.log(contacts)
+      signature = $("#email_signature").val()
+      context = $("#email_tag").val()
+      data = []
     
-    for i in [0..$(".description").length-1]
-      arr1 = $($(".description")[i]).val().split("\n")
-      for j in [0..arr1.length - 1]
-        data.push(arr1[j] + "\n" )
+      for i in [0..$(".description").length-1]
+        arr1 = $($(".description")[i]).val().split("\n")
+        for j in [0..arr1.length - 1]
+          data.push(arr1[j] + "\n" )
 
-    $.ajax ({
-      url:"/send_email"
-      data: {email: {subject:"#{subject}",greeting: "#{greeting}",contact_id:"#{contact_id}",signature: "#{signature}"},context: "#{context}",description: data },
-      type: "post",
-      dataType: "json",
-      success: (data) ->
+      $.ajax ({
+        url:"/send_email"
+        data: {email: {subject:"#{subject}",greeting: "#{greeting}",contact_id:"#{contact_id}",signature: "#{signature}"},context: "#{context}",description: data },
+        type: "post",
+        dataType: "json",
+        success: (data) ->
 
-        console.log(data)
-        console.log i
+          console.log(data)
+          console.log i
 
         # $("#table").html(data)
         # data contains html with updated values
         # use jquery selector for id table
-        contact = data['contacts']
-        console.log(contact)
-        if(contact.length is 0)
-          console.log("test")
-          window.location.href = "/"
-        else
-          console.log(contact[0])
-          alert 'Email sent.'
-          $("#contact_name").text(contact[0].name)
-          $("#contact_email").text(contact[0].email)
-          $("#contact_company").text(contact[0].company)
-          $("#email_contact_id").val(contact[0].id)
-          $("#contact_status").text(contact[0].status)
-          $("#email_greeting").val("Dear"+"" + $("#contact_name").text())
-        # replace the contents of above table tag with "data"
+          contact = data['contacts']
+          console.log(contact)
+          if(contact.length is 0)
+            console.log("test")
+            window.location.href = "/"
+          else
+            console.log(contact[0])
+            alert 'Email sent.'
+            $("#contact_name").text(contact[0].name)
+            $("#contact_email").text(contact[0].email)
+            $("#contact_company").text(contact[0].company)
+            $("#email_contact_id").val(contact[0].id)
+            $("#contact_status").text(contact[0].status)
+            $("#email_greeting").val("Dear"+"" + $("#contact_name").text())
+          # replace the contents of above table tag with "data"
           
-      error: (data)->
-        console.log(data)
-    })
+        error: (data)->
+          console.log(data)
+
+        })
     
-    return
+      return
 
   $(document).on "click", "#modal_submit", ->
     heading = $("#Heading").val()

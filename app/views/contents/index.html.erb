@@ -23,11 +23,6 @@
       <button id="next">next</button>
     </div>
   </div>
-  <% if flash[:notice] %>
-    <p class="alert alert-success"> email sent </p>
-  <% end %>
-  <% p flash[:alert] %>
-  <% p flash %>
   <p id="notice"><%= notice %></p>
   <div class="card card-stats container" >
     <%= bootstrap_form_for :email, html: { id: "form" }, url: send_email_path, remote: true do |f| %>
@@ -55,7 +50,7 @@
         </div>
       </div>
       <div class="col-md-10 " ><br> 
-        <%= f.select :signature, @signatures_map %>
+        <%= f.select :signature, @signatures_map, {:prompt => 'Select signature'} %>
       </div>
       <div class="card-footer">       
         <div class="col-md-8 pull-left" >
@@ -66,7 +61,7 @@
         <button type="button" class="btn btn-primary" id="preview">preview</button>
       </div>
       <div class="col-md-2 pull-right">
-        <button type=" submit"  class="btn btn-primary" id="test_mail">Test mail</button>
+        <button   class="btn btn-primary" id="test_mail">Test mail</button>
       </div><br>
       </div>
 

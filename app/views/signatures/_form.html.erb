@@ -1,4 +1,4 @@
 <%= f.text_field :name,:required => true  %>
 <%= f.email_field :email,type:"email", :required => true %>
-<%= f.select(:smtp_mail_server, options_for_select([["sendgrid","smtp.sendgrid.net"],["postmark","smtp.postmarkapp.com"]])) %>
+<%= f.select(:smtp_mail_server, options_for_select([["sendgrid","smtp.sendgrid.net"],["postmark","smtp.postmarkapp.com"]]),{:prompt => 'Select mail server'}) %>
 <%= f.text_field :api_key,:required => true %>
