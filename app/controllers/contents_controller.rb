@@ -1,12 +1,12 @@
 class ContentsController < ApplicationController
   def index
-    p @templates =  current_user.templates
-      @template = current_user.templates
-    p @signatures = current_user.signatures 
-    p @signatures_map  = @signatures.map{|s| ["#{s.name} <#{s.email}>", s.email] }
-    p @contacts = current_user.contacts.tagged_with(params[:context]).where(status: false)
+    @templates =  current_user.templates
+    @template = current_user.templates
+    @signatures = current_user.signatures 
+    @signatures_map  = @signatures.map{|s| ["#{s.name} <#{s.email}>", s.email] }
+    @contacts = current_user.contacts.tagged_with(params[:context]).where(status: false)
     if @contacts.empty?
-      p @contacts
+      @contacts
       flash[:notice] = "no contacts left"
       redirect_to dashboard_index_path
     end
@@ -18,26 +18,26 @@ class ContentsController < ApplicationController
     @greeting	= params[:email][:greeting]
     @subject = params[:email][:subject]
     @paragraph = params[:email][:paragraph]
-    p @contact = current_user.contacts.find(params[:email][:contact_id])
-    
-    p @signature = Signature.find_by(email: params[:email][:signature])
+    @contact = current_user.contacts.find(params[:email][:contact_id])
 
-    p 
+    @signature = Signature.find_by(email: params[:email][:signature])
+
+
     #byebug
     print "signature mail"
     SignatureMailer.test_email(@contact.id, @signature.id, @descriptions,@paragraph,@subject,@greeting).deliver_now
     print "delivery mails"
     @contact.update(status: true)
-    p @contacts = current_user.contacts.tagged_with(params[:context]).where(status: false)
-      flash[:alert] = "Email sent"
-     @contacts
+    @contacts = current_user.contacts.tagged_with(params[:context]).where(status: false)
+    flash[:alert] = "Email sent"
+    @contacts
     respond_to do |format|
       format.json { 
         #@contact = Contact.find(params[:email][:contact_id])
         #byebug
-        p @contacts
+        @contacts
         render json: {contacts: @contacts}, status: :ok
-        
+
 
         #redirect_to (contents_path(:context => @contact.tag_list))             
       }
@@ -55,10 +55,10 @@ class ContentsController < ApplicationController
     @contact = Contact.find(params[:email][:contact_id])
     @paragraph = params[:email][:paragraph]
     @signature = Signature.find_by(email: params[:email][:signature])
-    
+
     SignatureMailer.self_email(@signature.id, @descriptions,@paragraph,@subject,@greeting).deliver_now
-    
-      
+
+
     respond_to do |format|
       #byebug
       format.js {
