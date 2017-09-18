@@ -1,10 +1,10 @@
 <div class="container center_div col-md-offset-4">
- <div class = "col-sm-4">
- <div class = "well">
-	<%= bootstrap_form_for :signature,html: { id: "form_1" }, remote: true do |f| %>
-		<%= render "signatures/form", f: f %>
-  	<button type="submit" class="btn btn-primary next-step">Save and continue</button>
-  <% end %>
+  <div class = "col-sm-4">
+    <div class = "well">
+      <%= bootstrap_form_for :signature,html: { id: "form_1" }, remote: true do |f| %>
+        <%= render "signatures/form", f: f %>
+        <button type="submit" class="btn btn-primary next-step">Save and continue</button>
+      <% end %>
+    </div>
   </div>
-</div>
 </div>
