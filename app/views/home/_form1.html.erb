@@ -1,10 +1,10 @@
 <div class="container center_div col-md-offset-4">
-	<div class = "col-sm-4">
- 		<div class = "well">
-			<%= bootstrap_form_for :contact,html: { id: "form_2" },url: contact_register_path,remote: true do |f| %>
-				<%= render "contacts/form", f: f %>
-	 			<button type="submit" class="btn btn-primary next-step1">Save and continue</button>
-			<% end %>
-		</div>
-	</div>
+  <div class = "col-sm-4">
+    <div class = "well">
+      <%= bootstrap_form_for :contact,html: { id: "form_2" },url: contact_register_path,remote: true do |f| %>
+        <%= render "contacts/form", f: f %>
+        <button type="submit" class="btn btn-primary next-step1">Save and continue</button>
+      <% end %>
+    </div>
+  </div>
 </div>
