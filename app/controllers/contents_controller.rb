@@ -1,6 +1,7 @@
 class ContentsController < ApplicationController
   def index
     p @templates =  current_user.templates
+      @template = current_user.templates
     p @signatures = current_user.signatures 
     p @signatures_map  = @signatures.map{|s| ["#{s.name} <#{s.email}>", s.email] }
     p @contacts = current_user.contacts.tagged_with(params[:context]).where(status: false)

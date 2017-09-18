@@ -11,7 +11,14 @@ class TemplatesController < ApplicationController
    @templates = current_user.templates
     p @template = Template.new(template_params)
     @template.user_id = current_user.id
-    @template.save
+    @contact = Contact.tagged_with(params[:context]).where(status: false)
+    if @template.save
+
+    else
+       format.json { render json: @title.errors, status: :unprocessable_entity }
+    end
+
+
   end
 
   def edit

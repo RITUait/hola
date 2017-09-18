@@ -49,10 +49,14 @@ jQuery ->
       data: {template: {title:"#{heading}",description:"#{ans}"} },
       type: "post",
       dataType: "script"
+      success: (data)->
+        $("#myModal").modal('hide')
+      error: (data)->
+        alert("Title already exists")
     })
-    $("#myModal").modal('hide')
+    
     #.done(function($("#myModal").modal("hide")))
-
+    
     #$.post("/templates",{template:{title:"#{heading}",description:"#{ans}"}})
     return
 
