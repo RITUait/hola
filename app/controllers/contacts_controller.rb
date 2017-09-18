@@ -1,29 +1,26 @@
 
 class ContactsController < ApplicationController
   def index
-    p @contacts = current_user.contacts.paginate(page: params[:page], per_page: 10)
-
-
+    @contacts = current_user.contacts.paginate(page: params[:page], per_page: 10)
   end
 
   def import
     @errors = Contact.import(params[:file], current_user.id)
-     @contacts = current_user.contacts.paginate(page: params[:page], per_page: 10)
-    p @errors.present?
+    @contacts = current_user.contacts.paginate(page: params[:page], per_page: 10)
+    @errors.present?
     if @errors.present?  
       flash.now[:alert] = "CSV contains some errors"
       render :index
     else
       redirect_to contacts_path, notice: "contacts imported."
     end
-
   end
-  
+
   def export
     attributes = %w{Name Email Company Conference}
     #error = %w{firt pavi@gmail.com cyui ftrrt }
     #@contacts = current_user.contacts.paginate(page: params[:page], per_page: 10)
-    p @errors
+    @errors
     if @errors
       @download = CSV.generate(headers: true) do |csv|
         csv << attributes
@@ -32,12 +29,8 @@ class ContactsController < ApplicationController
         end
       end
     end
-
-    p @download
     send_data @download,type: "text/csv",filename: "contacts.csv"
- 
   end
-
 
   def new
     @contact = Contact.new
@@ -47,16 +40,16 @@ class ContactsController < ApplicationController
     @user = current_user.id
     @contacts = current_user.contacts   
     @contact = Contact.new(contact_params)
-    p @contact.user_id = current_user.id
-    p @contacts = current_user.contacts
-    p tag = @contact.tag_list
-    p email = @contact.email
-    p contact = @contacts.where(email: email).first
+    @contact.user_id = current_user.id
+    @contacts = current_user.contacts
+    tag = @contact.tag_list
+    email = @contact.email
+    contact = @contacts.where(email: email).first
     if contact
-        contact.tag_list.add(tag)
-        contact.save
-        redirect_to contacts_path
-      else
+      contact.tag_list.add(tag)
+      contact.save
+      redirect_to contacts_path
+    else
       @contact.save
       redirect_to contacts_path
     end
