@@ -1,10 +1,6 @@
 <div class="background">
-  <% @contacts.tag_counts.each do |t| %>
-    <% contacts = current_user.contacts.tagged_with(t.name)%>
-    <% @c << {"tag" => t.name, "notsent" => contacts.where(status: false).count, "sent" => contacts.where(status: true).count, "total" => contacts.count } %>
-  <% end %>
 
-  <% @c.each do |f| %>
+  <% @page.each do |f| %>
     <div class="col-sm-6">
       <div class="row">
         <div class="content" >
@@ -29,10 +25,9 @@
     </div>
   <% end %>
 </div>
-
-
-
-
+<div align="center">
+  <%= will_paginate @page%>
+</div>
 
 
 

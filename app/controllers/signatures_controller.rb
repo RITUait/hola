@@ -11,20 +11,14 @@ class SignaturesController < ApplicationController
     @signatures = current_user.signatures
     @signature = Signature.new(signature_params)
     @signature.user_id = current_user.id
-    if current_user.signatures.empty?
-      if @signature.save
-        redirect_to root_path
-      else
-        render :new
-      end
+    if @signature.save
+      redirect_to signatures_path
+      
     else
-      if @signature.save
-        redirect_to signatures_path
-      else
-        render :new
-      end
+     render :new
+      
     end
-  end
+  end 
   def edit
     @signature = Signature.find(params[:id])
   end

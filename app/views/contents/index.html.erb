@@ -24,6 +24,8 @@
     </div>
   </div>
   
+   
+  
   <div class="card card-stats container" >
     <%= bootstrap_form_for :email, html: { id: "form" }, url: send_email_path, remote: true do |f| %>
       <div class="col-md-12" class="card-header"><br>
@@ -54,14 +56,14 @@
         <%= f.select :signature, @signatures_map, {:prompt => 'Select signature'} %>
       </div>
       <div class="card-footer">       
-        <div class="col-md-8 pull-left" >
+        <div class="col-md-8 pull-left textarea" >
           <%= f.submit "send",id: "send" %> 
         </div>
       <%end%>
-      <div class="col-md-2 pull-right">
+      <div class="col-md-2 pull-right textarea">
         <button type="button" class="btn btn-primary" id="preview">preview</button>
       </div>
-      <div class="col-md-2 pull-right">
+      <div class="col-md-2 pull-right textarea">
         <button   class="btn btn-primary" id="test_mail">Test mail</button>
       </div><br>
       </div>
