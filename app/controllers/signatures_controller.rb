@@ -7,18 +7,17 @@ class SignaturesController < ApplicationController
   end
   def create
     @user = current_user.id
-    #byebug
     @signatures = current_user.signatures
     @signature = Signature.new(signature_params)
     @signature.user_id = current_user.id
     if @signature.save
       redirect_to signatures_path
-      
+
     else
-     render :new
-      
+      render :new
+
     end
-  end 
+  end
   def edit
     @signature = Signature.find(params[:id])
   end
