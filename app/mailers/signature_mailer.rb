@@ -1,65 +1,23 @@
 class SignatureMailer < ApplicationMailer
-  def test_email(contact_id, signature_id, descriptions,paragraph,subject,greeting)
+  def data(signature_id, descriptions,subject,greeting)
     @descriptions = descriptions
     @subject = subject
     @greeting = greeting
-    @paragraph = paragraph
+    @signature = Signature.find(signature_id)
+  end
+  def test_email(contact_id, signature_id, descriptions,subject,greeting)
+    data(signature_id, descriptions,subject,greeting)
     @contact = Contact.find(contact_id)
-    @signature = Signature.find(signature_id)
-    print "delivered"
-    if (@signature.smtp_mail_server =="smtp.sendgrid.net") then
+     
 
-    options = {
-      :user_name => 'apikey',
-      :address => @signature.smtp_mail_server,
-      :port => '587',
-      :password => @signature.api_key,
-      :authentication => 'plain',
-      :domain => "joshsoftware.com",
-      :enable_starttls_auto => true
-
-    }
-  else
-    options = {
-      :user_name => @signature.api_key,
-      :address => @signature.smtp_mail_server,
-      :port => '587',
-      :password => @signature.api_key,
-      :authentication => 'plain',
-      :domain => "simplysmart.tech",
-      :enable_starttls_auto => true
-    }
-  end
-    mail(from: @signature.email, to: @contact.email, subject: @subject,delivery_method_options: options)
+    mail(from: @signature.email, to: @contact.email, subject: @subject,delivery_method_options: @signature.delivery_options)
 
   end
 
-  def self_email(signature_id, descriptions,paragraph,subject,greeting)
-    @descriptions = descriptions
-    @subject = subject
-    @greeting = greeting
-    @paragraph = paragraph
-    @signature = Signature.find(signature_id)
+  def self_email(signature_id, descriptions,subject,greeting)
+     data(signature_id, descriptions,subject,greeting)
      #byebug
-    if (@signature.smtp_mail_server =="smtp.sendgrid.net") then
-    options = {
-      :user_name => 'apikey',
-      :address => @signature.smtp_mail_server,
-      :port => '587',
-      :password => @signature.api_key,
-      :authentication => 'plain',
-      :enable_starttls_auto => true
-    }
-    else
-    options = {
-      :user_name => @signature.api_key,
-      :address => @signature.smtp_mail_server,
-      :port => '587',
-      :password => @signature.api_key,
-      :authentication => 'plain',
-      :enable_starttls_auto => true
-    }
-  end
+    p @signature.smtp_mail_server
     mail(from: @signature.email, to: @signature.email, subject: @subject,delivery_method_options: options)
 
   end
