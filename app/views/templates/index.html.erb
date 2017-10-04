@@ -1,13 +1,10 @@
- 
-
-
 <table class="table table-bordered table-striped active">
   <thead style="background-color: orange;" text-align="center">
-  <th>Id</th>
-  <th>Title</th>
-  <th>Description</th>
-  <th> Edit </th>
-  <th> Delete </th>
+    <th>Id</th>
+    <th>Title</th>
+    <th>Description</th>
+    <th> Edit </th>
+    <th> Delete </th>
   </thead>
   <tbody>
     <% @templates.each do |template| %>
@@ -16,20 +13,18 @@
         <td><%= template.title %></td>
         <td><%= template.description %></td>
         <td><%= link_to edit_template_path(template), class: "button" do %>
-            <i class="glyphicon glyphicon-pencil"></i>
-            <% end %>
+          <i class="glyphicon glyphicon-pencil"></i>
+        <% end %>
         </td> 
         <td><%= link_to template,  method: :delete, data: {confirm: "are you sure?"}, class: "button" do%> 
           <i class="glyphicon glyphicon-trash"></i>
-            <% end %>
+        <% end %>
         </td>
       </tr>
     <% end %>
 
   </tbody>
 </table>
-</div>
-</div>
 <div align="center">
   <%= will_paginate @templates%>
 </div>

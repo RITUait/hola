@@ -1,17 +1,6 @@
-<div class="container">
-  <div class="col-md-12">
-    <%= @greeting %>
-  </div>
-  <div class="col-md-12">
-  </div><br>
-  <% @descriptions.each do |description| %>
-    <div class="col-md-12">
-      <%= description %>
-    </div>
-    <br>
-  <% end %>
-  <br><br>
-  <dt>With regards,</dt>
-  <%= @signature.name %>
-</div>
+<% @descriptions.each do |description| %>
+  <%= raw (description) %>
+<% end %>
+<dt>With regards,</dt>
+<%= @signature.name %>
 
