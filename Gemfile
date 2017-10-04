@@ -10,11 +10,12 @@ group :development do
   gem 'letter_opener_web'
 end
 gem "mail"
-gem 'tinymce-rails'
+gem 'ckeditor'
 gem 'wicked'
 gem 'easy_as_pie'
 gem 'toastr-rails'
 gem 'cancancan', '~> 2.0'
+gem 'jquery-validation-rails'
 gem 'rails_emoji_picker'
 gem 'remotipart', github: 'mshibuya/remotipart'
 gem 'rails_admin', '>= 1.0.0.rc'
