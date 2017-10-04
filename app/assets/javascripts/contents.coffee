@@ -7,12 +7,14 @@
 jQuery ->
   index = 0
   $("#add_textarea").click ->
-    # console.log('old index: ', index)
     index++
     $("#remove").show()
-    t = $(".row:first-child").html()
+    CKEDITOR.instances.description_.destroy()
+    t = $(".row:first").html()
     $(".contents").append("<div class='row' id='temp#{index}'>" + t+ "</div>")
-    
+    $(".row:last").find("#description_").attr("id","editor"+index)
+    CKEDITOR.replace("description_")
+    CKEDITOR.replace("editor"+index)
     return
 
   $(document).on 'click', '#remove', ->
@@ -21,13 +23,10 @@ jQuery ->
       index--
     return
 
-
+    
   $(document).on "click", ".save_as_template", ->
-    #v = $(this).parent().find("textarea").val()
-    #console.log("yeee", v)
-    #$('.templates').append("<option value=" + v + ">" + v + "</option>")
-    #return
-    description = $(this).parent().find("textarea").val()
+    textarea = CKEDITOR.instances.description_.getData()
+    description = CKEDITOR.instances.description_.getData()
     console.log("#{description}")
     if("#{description}")
       $("#myModal").val(description)
@@ -55,24 +54,25 @@ jQuery ->
         alert("Title already exists")
     })
     
-    #.done(function($("#myModal").modal("hide")))
-    
-    #$.post("/templates",{template:{title:"#{heading}",description:"#{ans}"}})
     return
-
-  
 
   
   $(document).on "change", "#template", ->
     selectedid = $(this).find("option:selected").val()
     obj = $(this).parent().parent().find('.description')
+    #obj.atrr("id")
+    console.log(obj.attr("id"))
     console.log(obj)
+    console.log(" This: ", this )
     $.ajax "/templates/"+selectedid,
       type: "get"
       dataType: "json"
       success: (data, textStatus, jqXHR) ->
         console.log(data["description"])
-        obj.val(data["description"])
+        #debugger
+        console.log(obj.attr("id"))
+        content = obj.val(data["description"])
+        CKEDITOR.instances[obj.attr('id')].setData(content)
 
     return
 
@@ -101,9 +101,6 @@ jQuery ->
     $('#btn2').hide()
     return
 
-
-
-  
   $('#form_1').submit (e) ->
     $active = $('.wizard .nav-tabs li.active')
     $active.next().removeClass 'disabled'
@@ -133,18 +130,6 @@ jQuery ->
     $active = $('.wizard .nav-tabs li.active')
     prevTab $active
     return
-
-
-  $('.multi-field-wrapper').each ->
-  $wrapper = $('.multi-fields', this)
-  $('.add-field', $(this)).click (e) ->
-    $('.multi-field:first-child', $wrapper).clone(true).appendTo($wrapper).find('input').val('').focus()
-    return
-  $('.multi-field .remove-field', $wrapper).click ->
-    if $('.multi-field', $wrapper).length > 1
-      $(this).parent('.multi-field').remove()
-    return
-  return
 return
 
 
