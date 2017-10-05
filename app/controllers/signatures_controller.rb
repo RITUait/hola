@@ -8,7 +8,6 @@ class SignaturesController < ApplicationController
   end
 
   def create
-    @user = current_user.id
     @signatures = current_user.signatures
     @signature = Signature.new(signature_params)
     @signature.user_id = current_user.id
