@@ -1,94 +1,93 @@
-
 <div class="container">
-<nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      
-    </div>
-    <ul class="nav navbar-nav">
-      <li><a id="browse" data-toggle="collapse" data-target="#demo">Browse/Download</a></li>
-    </ul>
-    <ul class="nav navbar-nav">
-      <li class: "pull-right" ><%= link_to "Add contact", new_contact_path %></li>
-    </ul>
-    </ul>
-  
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
 
-<%= form_tag import_contacts_path, multipart: true do %>
-  <div id="demo" class="collapse col-sm-12">
-  <table class="table ">
-  <tbody>
-  <tr>
-  <td>
-    <b><h1 style="font-size:18px;">Browse & Import </h1></b>
-    <div class="col-sm-4">
-      <%= file_field_tag :file ,accept: 'text/csv'%></span>
-      <i>(supports only csv files)</i>
-    <div><br>
-    
-    <div>
-    <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
-    <%= submit_tag "Import CSV" , remote: true%><br>
-    
-    </div>
-    </td>
+      </div>
+      <ul class="nav navbar-nav">
+        <li><a id="browse" data-toggle="collapse" data-target="#demo">Browse/Download</a></li>
+      </ul>
+      <ul class="nav navbar-nav">
+        <li class: "pull-right" ><%= link_to "Add contact", new_contact_path %></li>
+      </ul>
+      </ul>
+
+
+      <%= form_tag import_contacts_path, multipart: true do %>
+        <div id="demo" class="collapse col-sm-12">
+          <table class="table ">
+            <tbody>
+              <tr>
+                <td>
+                  <b><h1 style="font-size:18px;">Browse & Import </h1></b>
+                  <div class="col-sm-4">
+                    <%= file_field_tag :file ,accept: 'text/csv'%></span>
+                  <i>(supports only csv files)</i>
+                  <div><br>
+
+                    <div>
+                      <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+                      <%= submit_tag "Import CSV" , remote: true%><br>
+
+                    </div>
+                </td>
+
+                  </div>
+                  </div>
+                  <td>   
+                    <div class="col-sm-4">
+                      <b><h1 style="font-size:18px;">Download </h1></b><br>
+                      <%= link_to "Download sample CSV", "/contact.csv", class: "btn btn-sm btn-primary" %>
+                    </div>
+                  </td>
+
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      <% end %>
 
     </div>
-    </div>
-    <td>   
-    <div class="col-sm-4">
-      <b><h1 style="font-size:18px;">Download </h1></b><br>
-      <%= link_to "Download sample CSV", "/contact.csv", class: "btn btn-sm btn-primary" %>
-    </div>
-    </td>
-    
-    </tr>
-    </tbody>
-    </table>
-    </div>
-<% end %>
-
-</div>
-</nav>
-<br><br>
-<% if @errors %>
+  </nav>
+  <br><br>
+  <% if @errors %>
     <div class="alert alert-info alert-dismissable">
-    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-    <p> Your contacts imported has error 
-    <%= link_to "CLICK HERE","/file.csv" %> to download this file with errors</p>
+      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      <p> Your contacts imported has error 
+      <%= link_to "CLICK HERE","/file.csv" %> to download this file with errors</p>
     </div>
-    <% end %>
-<table class="table table-bordered table-striped active">
-  <thead style="background-color: orange;" text-align="center">
-  <th>Id</th>
-  <th>Name</th>
-  <th>Email</th>
-  <th>Company</th>
-  <th>Conference</th>
-  <th>Email status</th>
-  <th> Edit </th>
-  <th> Delete </th>
-  </thead>
-  <tbody>
-    <% @contacts.each do |contact| %>
-      <tr >
-        <td><%= contact.id %></td>
-        <td><%= contact.name %></td>
-        <td><%= contact.email %></td>
-        <td><%= contact.company %></td>
-        <p>
-        <td><%= contact.tag_list  %></td></p>
-        <% if(contact.status == false) %>
-        <td style="color: red;">Not sent</td>
-        <% else %>
-        <td style="color: green;">Sent</td>
-        <% end%>
+  <% end %>
+  <table class="table table-bordered table-striped active">
+    <thead style="background-color: orange;" text-align="center">
+      <th>Id</th>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Company</th>
+      <th>Conference</th>
+      <th>Email status</th>
+      <th> Edit </th>
+      <th> Delete </th>
+    </thead>
+    <tbody>
+      <% @contacts.each do |contact| %>
+        <tr >
+          <td><%= contact.id %></td>
+          <td><%= contact.name %></td>
+          <td><%= contact.email %></td>
+          <td><%= contact.company %></td>
+          <p>
+          <td><%= contact.tag_list  %></td></p>
+          <% if(contact.status == false) %>
+            <td style="color: red;">Not sent</td>
+          <% else %>
+            <td style="color: green;">Sent</td>
+          <% end%>
           <td><%= link_to edit_contact_path(contact), class: "button" do %>
             <i class="glyphicon glyphicon-pencil"></i>
-            <% end %>
-        </td> 
-        <td><%= link_to contact,  method: :delete, data: {confirm: "are you sure?"}, class: "button" do%> 
-          <i class="glyphicon glyphicon-trash"></i>
+          <% end %>
+          </td> 
+          <td><%= link_to contact,  method: :delete, data: {confirm: "are you sure?"}, class: "button" do%> 
+            <i class="glyphicon glyphicon-trash"></i>
             <% end %>
         </td>
       </tr>
