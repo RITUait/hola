@@ -21,9 +21,9 @@ class HomeController < ApplicationController
   end
 
   def contact
-    @user = current_user.id
-    @contacts = current_user.contacts   
+    #@contacts = current_user.contacts   
     @contact = Contact.new(contact_params)
+    @contact.user_id = current_user.id
     @contact.save
   end
 
