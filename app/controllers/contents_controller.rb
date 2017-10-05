@@ -1,4 +1,5 @@
 class ContentsController < ApplicationController
+  
   def index
     @templates =  current_user.templates
     @template = current_user.templates
@@ -12,19 +13,20 @@ class ContentsController < ApplicationController
     end
   end
 
-  def send_email
+  def send_content
     @descriptions = params[:description]
     @greeting = params[:email][:greeting]
     @subject = params[:email][:subject]
-    @paragraph = params[:email][:paragraph]
     @contact = current_user.contacts.find(params[:email][:contact_id])
-
     @signature = Signature.find_by(email: params[:email][:signature])
+  end
+
+  def send_email
+    send_content
     SignatureMailer.test_email(@contact.id, @signature.id, @descriptions,@subject,@greeting).deliver_now
     @contact.update(status: true)
     @contacts = current_user.contacts.tagged_with(params[:context]).where(status: false)
     flash[:alert] = "Email sent"
-    @contacts
     respond_to do |format|
       format.json {
         @contacts
@@ -34,14 +36,7 @@ class ContentsController < ApplicationController
   end
 
   def self_email
-    @descriptions = params[:description]
-    @greeting = params[:email][:greeting]
-    @subject = params[:email][:subject]
-    @contact = Contact.find(params[:email][:contact_id])
-    @signature = Signature.find_by(email: params[:email][:signature])
-
     SignatureMailer.self_email(@signature.id, @descriptions,@subject,@greeting).deliver_now
-
     respond_to do |format|
       format.js {
         flash[:notice] = "Email sent"
