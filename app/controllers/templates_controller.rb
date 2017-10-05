@@ -9,8 +9,8 @@ class TemplatesController < ApplicationController
   end
 
   def create
-   @templates = current_user.templates
-    p @template = Template.new(template_params)
+    @templates = current_user.templates
+    @template = Template.new(template_params)
     @template.user_id = current_user.id
     @contact = Contact.tagged_with(params[:context]).where(status: false)
     if @template.save
