@@ -103,7 +103,7 @@ jQuery ->
       return
 
   $("#send").on "click", (e)->
-    maildeliver()
+      maildeliver()
       $.ajax ({
         url:"/send_email"
         data: {email: {subject:"#{subject}",greeting: "#{greeting}",contact_id:"#{contact_id}",signature: "#{signature}"},context: "#{context}",description: data },
