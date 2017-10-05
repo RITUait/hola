@@ -89,7 +89,24 @@ jQuery ->
     return
 
   $("#test_mail").on 'click', (e) ->
-      maildeliver()
+    e.preventDefault()
+    textBox = $("#email_subject").val()
+    textBox1 = $(".description").val()
+    if ((textBox == '')||(textBox1 == ''))
+      alert 'your text field is empty'
+    else
+      
+      subject = $("#email_subject").val()
+      greeting = $("#email_greeting").val()
+      contact_id = $("#email_contact_id").val()
+      signature = $("#email_signature").val()
+      context = $("#email_tag").val()
+      data = []
+      for a of CKEDITOR.instances
+        arr1 = CKEDITOR.instances[a].getData().split("\n")
+        for j in [0..arr1.length - 1]
+          data.push(arr1[j] + "<br>" )
+
       $.ajax ({
         url:"/self_email"
         data: {email: {subject:"#{subject}",greeting: "#{greeting}",contact_id:"#{contact_id}",signature: "#{signature}"},context: "#{context}",description: data },
@@ -103,7 +120,24 @@ jQuery ->
       return
 
   $("#send").on "click", (e)->
-      maildeliver()
+      e.preventDefault()
+      textBox = $("#email_subject").val()
+      textBox1 = $(".description").val()
+      if ((textBox == '')||(textBox1 == ''))
+        alert 'your text field is empty'
+      else
+      
+      subject = $("#email_subject").val()
+      greeting = $("#email_greeting").val()
+      contact_id = $("#email_contact_id").val()
+      signature = $("#email_signature").val()
+      context = $("#email_tag").val()
+      data = []
+      for a of CKEDITOR.instances
+        arr1 = CKEDITOR.instances[a].getData().split("\n")
+        for j in [0..arr1.length - 1]
+          data.push(arr1[j] + "<br>" )
+
       $.ajax ({
         url:"/send_email"
         data: {email: {subject:"#{subject}",greeting: "#{greeting}",contact_id:"#{contact_id}",signature: "#{signature}"},context: "#{context}",description: data },
