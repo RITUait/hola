@@ -3,6 +3,7 @@ class TemplatesController < ApplicationController
     @templates = current_user.templates.paginate(page: params[:page], per_page: 10)
     @contact = Contact.tagged_with(params[:flag]).where(status: false).first
   end
+  
   def new
     @template = Template.new(template_params)
   end
@@ -17,8 +18,6 @@ class TemplatesController < ApplicationController
     else
        format.json { render json: @title.errors, status: :unprocessable_entity }
     end
-
-
   end
 
   def edit
@@ -50,6 +49,6 @@ class TemplatesController < ApplicationController
 
   private
   def template_params
-    params.require(:template).permit(:title, :category, :paragraph, :description,:api_key,:user_id)
+    params.require(:template).permit(:title,:description,:user_id)
   end
 end
