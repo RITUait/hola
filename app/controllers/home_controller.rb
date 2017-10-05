@@ -24,10 +24,7 @@ class HomeController < ApplicationController
     @user = current_user.id
     @contacts = current_user.contacts   
     @contact = Contact.new(contact_params)
-    p @contact.user_id = current_user.id
     @contact.save
-
-
   end
 
   def signature_params
