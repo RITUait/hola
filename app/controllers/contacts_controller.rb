@@ -1,4 +1,3 @@
-
 class ContactsController < ApplicationController
   def index
     @contacts = current_user.contacts.paginate(page: params[:page], per_page: 10)
@@ -7,7 +6,6 @@ class ContactsController < ApplicationController
   def import
     @errors = Contact.import(params[:file], current_user.id)
     @contacts = current_user.contacts.paginate(page: params[:page], per_page: 10)
-    @errors.present?
     if @errors.present?  
       flash.now[:alert] = "CSV contains some errors"
       render :index
@@ -18,9 +16,6 @@ class ContactsController < ApplicationController
 
   def export
     attributes = %w{Name Email Company Conference}
-    #error = %w{firt pavi@gmail.com cyui ftrrt }
-    #@contacts = current_user.contacts.paginate(page: params[:page], per_page: 10)
-    @errors
     if @errors
       @download = CSV.generate(headers: true) do |csv|
         csv << attributes
@@ -37,8 +32,7 @@ class ContactsController < ApplicationController
   end
 
   def create
-    @user = current_user.id
-    @contacts = current_user.contacts   
+    @user = current_user.id 
     @contact = Contact.new(contact_params)
     @contact.user_id = current_user.id
     @contacts = current_user.contacts
@@ -54,13 +48,16 @@ class ContactsController < ApplicationController
       redirect_to contacts_path
     end
   end
+
   def edit
     @contact = Contact.find(params[:id])
   end
+
   def destroy
     Contact.find(params[:id]).destroy
     redirect_to contacts_path
   end
+
   def update
     @contact= Contact.find(params[:id])
     if @contact.update_attributes(contact_params)
