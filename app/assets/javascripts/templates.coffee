@@ -36,7 +36,7 @@ jQuery ->
       for a of CKEDITOR.instances
         arr1 = CKEDITOR.instances[a].getData()
         for j in [0..arr1.length - 1]
-          data.push(arr1[j] )
+          data.push(arr1[j] + "<br>" )
 
 
    setvalue = ->
@@ -83,8 +83,7 @@ jQuery ->
       console.log(CKEDITOR.instances[a].getData())
       arr1 = CKEDITOR.instances[a].getData().split("\n")
       for j in [0..arr1.length - 1]
-        data.push(arr1[j])
-
+        data.push(arr1[j] + "<br>")
     $('#myModal1').find('.description').html(data.join(''))
     $("#myModal1").modal()
     return
@@ -104,24 +103,7 @@ jQuery ->
       return
 
   $("#send").on "click", (e)->
-    e.preventDefault()
-    textBox = $("#email_subject").val()
-    #textBox1 = $(".description").val()
-    if ((textBox == ''))
-      alert 'your text field is empty'
-    else
-      
-      subject = $("#email_subject").val()
-      greeting = $("#email_greeting").val()
-      contact_id = $("#email_contact_id").val()
-      signature = $("#email_signature").val()
-      context = $("#email_tag").val()
-      data = []
-      for a of CKEDITOR.instances
-        arr1 = CKEDITOR.instances[a].getData().split("\n")
-        for j in [0..arr1.length - 1]
-          data.push(arr1[j] )
-
+    maildeliver()
       $.ajax ({
         url:"/send_email"
         data: {email: {subject:"#{subject}",greeting: "#{greeting}",contact_id:"#{contact_id}",signature: "#{signature}"},context: "#{context}",description: data },
