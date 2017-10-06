@@ -8,8 +8,7 @@ class Contact < ApplicationRecord
   def self.import(file,user_id)
     error_output= []
     CSV.foreach(file.path, headers: true,:converters => :all,
-             :header_converters => lambda { |h| h.downcase.gsub(' ', '_') unless h.nil? }).with_index  do |row|
-      p row.headers
+                :header_converters => lambda { |h| h.downcase.gsub(' ', '_') unless h.nil? }).with_index  do |row|
       contact = Contact.find_or_create_by(email: row['email'], user_id: user_id)
       tags = CSV.parse_line(row['conference'], col_sep: ',')
       if contact.valid?
