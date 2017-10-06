@@ -7,15 +7,17 @@ class Contact < ApplicationRecord
 
   def self.import(file,user_id)
     error_output= []
-    CSV.foreach(file.path, headers: true).with_index  do |row|
-      contact = Contact.find_or_create_by(email: row['Email'], user_id: user_id)
-      tags = CSV.parse_line(row['Conference'], col_sep: ' ')
-      if contact.persisted?
+    CSV.foreach(file.path, headers: true,:converters => :all,
+             :header_converters => lambda { |h| h.downcase.gsub(' ', '_') unless h.nil? }).with_index  do |row|
+      p row.headers
+      contact = Contact.find_or_create_by(email: row['email'], user_id: user_id)
+      tags = CSV.parse_line(row['conference'], col_sep: ',')
+      if contact.valid?
         contact.tag_list.add(tags)
         contact.save
       else
-        unless contact.update_attributes(:name => row["Name"],:company => row["Company"], :tag_list => [row["Conference"]],user_id: user_id)
-          row = [row["Name"], row["Email"], row["Company"], row["Conference"], contact.errors.full_messages.map(&:inspect).join(",")]
+        unless contact.update_attributes(:name => row["name"],:company => row["company"], :tag_list => [row["conference"]],user_id: user_id)
+          row = [row["name"], row["email"], row["company"], row["conference"], contact.errors.full_messages.map(&:inspect).join(",")]
           contact.errors.full_messages.map(&:inspect).join(",")
           error_output << row
         end
@@ -25,7 +27,7 @@ class Contact < ApplicationRecord
   end
 
   def self.print_errors(error_output)
-    attributes = %w{Name Email Company Conference}
+    attributes = %w{name email company conference}
     CSV.open(Rails.root.join('public', "file.csv"),"wb") do |csv|
       csv << attributes
       error_output.each do |message|
