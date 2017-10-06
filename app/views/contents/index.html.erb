@@ -37,11 +37,9 @@
         <%= f.hidden_field :contact_id, value: @contacts[0].id  %>
         
       </div>
-       <div class="col-md-10 textarea" >
-        <button type="button" class="btn btn-success" id="add_textarea" >Add paragraph</button><br>
-      </div>
+       
       <div class="contents" >
-        <div class="row " id = "temp0"  >
+        <div class="row " id = "temp0" >
           <div class="col-md-9" class="card-content">
             <%= text_area_tag "description[]","", class: "form-control description sig-description ckeditor",:required => true,placeholder: "Select a template from..." %>
         <%= link_to 'Save as template', "javascript:void(0)", class: 'save_as_template pull-right' %> 
@@ -53,8 +51,11 @@
             <button type="button" class="btn btn-danger" id="remove">Remove</button>
           </div>
         </div>
+        
       </div>
-      
+      <div class="col-md-10 textarea" ><br>
+          <button type="button" class="btn btn-success" id="add_textarea">Add paragraph</button>
+        </div>
       <div class="col-md-10 " ><br> 
         <%= f.select :signature, @signatures_map, {:prompt => 'Select signature'} %>
       </div>
